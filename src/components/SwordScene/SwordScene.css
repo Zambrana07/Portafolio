@@ -9,7 +9,6 @@
 
 .sword-scene--ready {
   opacity: 0.38;
-  filter: saturate(0.7) brightness(0.8);
 }
 
 .sword-scene--missing {

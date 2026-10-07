@@ -114,15 +114,17 @@ const CathedralFog = () => {
     window.addEventListener('pointermove', onPointerMove);
 
     let raf = 0;
+    let frame = 0;
     const t0 = performance.now();
     const loop = t => {
+      raf = requestAnimationFrame(loop);
+      if (coarse && frame++ % 2) return;
       program.uniforms.iTime.value = (t - t0) * 0.001;
       currentMouse[0] += 0.03 * (targetMouse[0] - currentMouse[0]);
       currentMouse[1] += 0.03 * (targetMouse[1] - currentMouse[1]);
       program.uniforms.uMouse.value[0] = currentMouse[0];
       program.uniforms.uMouse.value[1] = currentMouse[1];
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
     };
 
     const start = () => {

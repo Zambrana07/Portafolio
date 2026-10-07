@@ -61,12 +61,52 @@
 }
 
 .skills-stage--lite {
-  height: 360px;
+  height: 300px;
 }
 
-.skills-stage--lite .circular-carousel[data-shape='panorama'] .circular-carousel__view {
-  -webkit-mask-image: none;
-  mask-image: none;
+.skills-marquee {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.skills-marquee-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  padding-right: 18px;
+  animation: skills-marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.skills-marquee:active .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+.skills-marquee-card {
+  flex: 0 0 auto;
+  width: 170px;
+  height: 218px;
+}
+
+@keyframes skills-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-marquee {
+    overflow-x: auto;
+  }
+
+  .skills-marquee-track {
+    animation: none;
+  }
 }
 
 .skills-stage--lite::before,

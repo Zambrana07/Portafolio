@@ -27,7 +27,7 @@ const SwordScene = ({ modelUrl, pointDown = false, heightRatio = 0.82 }) => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1.25 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMappingExposure = 0.85;
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -89,9 +89,12 @@ const SwordScene = ({ modelUrl, pointDown = false, heightRatio = 0.82 }) => {
 
     let currentSpin = 0;
     let raf = 0;
+    let frame = 0;
     const clock = new THREE.Clock();
 
     const loop = () => {
+      raf = requestAnimationFrame(loop);
+      if (coarse && frame++ % 2) return;
       const t = clock.getElapsedTime();
       const targetSpin = scrollProgress() * Math.PI * 2 * TURNS_PER_PAGE;
       currentSpin += (targetSpin - currentSpin) * 0.08;
@@ -101,7 +104,6 @@ const SwordScene = ({ modelUrl, pointDown = false, heightRatio = 0.82 }) => {
       spinner.position.y = Math.sin(t * 0.8) * 0.06;
 
       renderer.render(scene, camera);
-      raf = requestAnimationFrame(loop);
     };
 
     const start = () => {

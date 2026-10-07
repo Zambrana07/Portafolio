@@ -25,22 +25,48 @@ const renderSkill = (skill, index) => (
   </div>
 );
 
+const SkillsList = ({ skills }) => (
+  <ul className="skills-list-sr">
+    {skills.map(skill => (
+      <li key={skill.title}>
+        {skill.title} ({skill.subtitle})
+      </li>
+    ))}
+  </ul>
+);
+
 const SkillsCarousel = ({ skills }) => {
   const lite = useLiteMode();
 
+  if (lite) {
+    return (
+      <div className="skills-stage skills-stage--lite chapter-reveal">
+        <div className="skills-marquee" aria-hidden="true">
+          <div className="skills-marquee-track">
+            {[...skills, ...skills].map((skill, i) => (
+              <div key={i} className="skills-marquee-card">
+                {renderSkill(skill, i % skills.length)}
+              </div>
+            ))}
+          </div>
+        </div>
+        <SkillsList skills={skills} />
+      </div>
+    );
+  }
+
   return (
-    <div className={`skills-stage chapter-reveal${lite ? ' skills-stage--lite' : ''}`}>
+    <div className="skills-stage chapter-reveal">
       <CircularCarousel
         items={skills}
         renderItem={renderSkill}
         label="Habilidades"
         preset="panorama"
         intro="rise"
-        cardWidth={lite ? 190 : 220}
+        cardWidth={220}
         aspectRatio={0.78}
-        curve={lite ? 0 : 1}
         speed={10}
-        gap={lite ? 22 : 28}
+        gap={28}
         autoplay="drift"
         direction="left"
         momentum={0.6}
@@ -48,20 +74,14 @@ const SkillsCarousel = ({ skills }) => {
         pauseOnHover
         focusOnClick
         draggable
-        parallax={lite ? 0 : 0.3}
-        stretch={lite ? 0 : 0.5}
+        parallax={0.3}
+        stretch={0.5}
         fadeColor="#0b0807"
         depthFade={0.6}
         innerShade={0.6}
         cornerRadius={4}
       />
-      <ul className="skills-list-sr">
-        {skills.map(skill => (
-          <li key={skill.title}>
-            {skill.title} ({skill.subtitle})
-          </li>
-        ))}
-      </ul>
+      <SkillsList skills={skills} />
     </div>
   );
 };
