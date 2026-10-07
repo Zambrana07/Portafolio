@@ -1,0 +1,94 @@
+.github-bubble {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  color: #f1dfb0;
+  background:
+    radial-gradient(circle at 32% 25%, rgba(255, 240, 200, 0.35), rgba(255, 240, 200, 0) 50%),
+    radial-gradient(circle at 50% 60%, #5a0d12, #1c0507 75%);
+  border: 2px solid #c9a55a;
+  box-shadow:
+    0 0 0 3px rgba(20, 8, 6, 0.9),
+    0 0 0 4px rgba(201, 165, 90, 0.45),
+    inset 0 1px 2px rgba(255, 235, 190, 0.5),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(163, 32, 42, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.github-bubble::before {
+  content: '';
+  position: absolute;
+  top: 6%;
+  left: 18%;
+  width: 64%;
+  height: 36%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 240, 210, 0.3), rgba(255, 240, 210, 0));
+  pointer-events: none;
+}
+
+.github-bubble::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 230, 170, 0.35) 50%, transparent 58%);
+  transform: translateX(-100%);
+  animation: github-bubble-sheen 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes github-bubble-sheen {
+  0%,
+  70% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.github-bubble svg {
+  position: relative;
+  z-index: 1;
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: currentColor;
+  filter: drop-shadow(0 0 4px rgba(201, 165, 90, 0.5));
+}
+
+.github-bubble:hover,
+.github-bubble:focus-visible {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow:
+    0 0 0 3px rgba(20, 8, 6, 0.9),
+    0 0 0 4px rgba(201, 165, 90, 0.7),
+    inset 0 1px 2px rgba(255, 235, 190, 0.6),
+    inset 0 -8px 14px rgba(0, 0, 0, 0.5),
+    0 12px 32px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(201, 165, 90, 0.45);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .github-bubble::after {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .github-bubble {
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}

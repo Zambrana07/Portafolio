@@ -1,0 +1,19 @@
+.hero-name {
+  margin: 0;
+  padding: 3rem 1rem 1rem;
+  text-align: center;
+  font-family: var(--font-ornate);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 5.6vw, 4.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--bone);
+  text-shadow:
+    0 0 24px rgba(201, 165, 90, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+.hero-name-line {
+  display: block;
+  white-space: nowrap;
+}
