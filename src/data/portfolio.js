@@ -33,9 +33,9 @@ export const projects = [
 export const experience = [
   {
     title: 'Global Communities',
-    meta: 'Práctica profesional',
+    meta: 'Pasantía',
     description:
-      'Realicé mi práctica profesional en Global Communities, una organización internacional de desarrollo, contribuyendo a iniciativas que ayudan a personas y comunidades en África.',
+      'Realicé una pasantía en Global Communities, una organización internacional de desarrollo, contribuyendo a iniciativas que ayudan a personas y comunidades en África.',
     tags: [],
     links: []
   },
