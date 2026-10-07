@@ -80,7 +80,8 @@ const CathedralFog = () => {
 
   useEffect(() => {
     const container = containerRef.current;
-    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 1.5), antialias: false });
+    const coarse = window.matchMedia('(pointer: coarse)').matches;
+    const renderer = new Renderer({ dpr: coarse ? 0.6 : Math.min(window.devicePixelRatio || 1, 1.5), antialias: false });
     const gl = renderer.gl;
     const canvas = gl.canvas;
     container.appendChild(canvas);

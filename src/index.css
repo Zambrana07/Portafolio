@@ -26,6 +26,8 @@ body {
   padding: 0;
   background: var(--black);
   color: var(--bone);
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
@@ -143,6 +145,28 @@ body {
 
 .site-footer a {
   color: var(--gold);
+}
+
+@media (hover: none) {
+  .hero-menu a {
+    color: var(--gold);
+    text-shadow: 0 0 14px rgba(201, 165, 90, 0.5);
+  }
+
+  .hero-menu a:active::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-menu {
+    gap: 1.6rem;
+  }
+
+  .hero-menu a {
+    letter-spacing: 0.15em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -22,8 +22,9 @@ const SwordScene = ({ modelUrl, pointDown = false, heightRatio = 0.82 }) => {
   useEffect(() => {
     const container = containerRef.current;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const coarse = window.matchMedia('(pointer: coarse)').matches;
+    const renderer = new THREE.WebGLRenderer({ antialias: !coarse, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1.25 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;

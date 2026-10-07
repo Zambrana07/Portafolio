@@ -75,7 +75,11 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
             y: ['3rem', 0],
             filter: ['blur(8px)', 'blur(0px)'],
             duration: 1200,
-            ease: 'outQuart'
+            ease: 'outQuart',
+            onComplete: () => {
+              entry.target.style.filter = '';
+              entry.target.style.transform = '';
+            }
           });
           observer.unobserve(entry.target);
         });

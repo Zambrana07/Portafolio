@@ -78,6 +78,18 @@
   outline: none;
 }
 
+@media (hover: none) {
+  .github-bubble:active {
+    transform: scale(0.94);
+    box-shadow:
+      0 0 0 3px rgba(20, 8, 6, 0.9),
+      0 0 0 4px rgba(201, 165, 90, 0.7),
+      inset 0 1px 2px rgba(255, 235, 190, 0.6),
+      inset 0 -8px 14px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(201, 165, 90, 0.45);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .github-bubble::after {
     animation: none;
