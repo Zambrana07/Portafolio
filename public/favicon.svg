@@ -1,13 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f0d68f"/>
-      <stop offset="0.5" stop-color="#c9a55a"/>
-      <stop offset="1" stop-color="#8a6a2e"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="#0b0807" stroke="#7a1212" stroke-width="3"/>
-  <path d="M32 32 C45 23 44 8 32 8 C20 8 19 23 32 32 C46 41 46 57 32 57 C18 57 18 41 32 32 Z"
-        fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M32 27 L35 32 L32 37 L29 32 Z" fill="#c0353f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <rect x="1" y="1" width="14" height="14" fill="#0b0807"/>
+  <path fill="#f0d68f" d="M6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM5 3h1v1h-1zM4 4h1v1h-1zM4 5h1v1h-1zM5 6h1v1h-1zM5 8h1v1h-1zM4 9h1v1h-1zM3 10h1v1h-1zM3 11h1v1h-1zM3 12h1v1h-1z"/>
+  <path fill="#c9a55a" d="M6 3h1v1h-1zM9 3h1v1h-1zM5 4h1v1h-1zM10 4h1v1h-1zM5 5h1v1h-1zM10 5h1v1h-1zM6 6h1v1h-1zM9 6h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM5 9h1v1h-1zM10 9h1v1h-1zM4 10h1v1h-1zM11 10h1v1h-1zM4 11h1v1h-1zM11 11h1v1h-1zM4 12h1v1h-1zM11 12h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1z"/>
+  <path fill="#7d5f28" d="M10 3h1v1h-1zM11 4h1v1h-1zM11 5h1v1h-1zM10 6h1v1h-1zM10 8h1v1h-1zM11 9h1v1h-1zM12 10h1v1h-1zM12 11h1v1h-1zM12 12h1v1h-1zM4 13h1v1h-1zM11 13h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM9 14h1v1h-1zM10 14h1v1h-1z"/>
+  <path fill="#c0353f" d="M3 4h1v1h-1zM12 4h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1z"/>
+  <path fill="#6e1010" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM7 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM0 1h1v1h-1zM15 1h1v1h-1zM0 2h1v1h-1zM15 2h1v1h-1zM0 3h1v1h-1zM15 3h1v1h-1zM0 4h1v1h-1zM15 4h1v1h-1zM0 5h1v1h-1zM15 5h1v1h-1zM0 6h1v1h-1zM15 6h1v1h-1zM0 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM15 8h1v1h-1zM0 9h1v1h-1zM15 9h1v1h-1zM0 10h1v1h-1zM15 10h1v1h-1zM0 11h1v1h-1zM15 11h1v1h-1zM0 12h1v1h-1zM15 12h1v1h-1zM0 13h1v1h-1zM15 13h1v1h-1zM0 14h1v1h-1zM15 14h1v1h-1zM1 15h1v1h-1zM2 15h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM6 15h1v1h-1zM7 15h1v1h-1zM8 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1z"/>
 </svg>
