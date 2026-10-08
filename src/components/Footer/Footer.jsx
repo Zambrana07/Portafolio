@@ -24,7 +24,7 @@ const Footer = ({ name, role, socials }) => {
     <footer className="site-footer">
       <div className="footer-panel ornate-frame">
         <blockquote className="footer-quote">
-          <p>«Cada línea de código, una penitencia; cada proyecto terminado, un milagro.»</p>
+          <p>«Si no vives para servir, no sirves para vivir.»</p>
         </blockquote>
 
         <div className="footer-grid">
