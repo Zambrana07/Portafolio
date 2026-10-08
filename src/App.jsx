@@ -2,7 +2,6 @@ import CathedralFog from './components/CathedralFog/CathedralFog';
 import SwordScene from './components/SwordScene/SwordScene';
 import HeroName from './components/HeroName/HeroName';
 import Chapter from './components/Chapter/Chapter';
-import GithubBubble from './components/GithubBubble/GithubBubble';
 import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
 import Certificates from './components/Certificates/Certificates';
 import Footer from './components/Footer/Footer';
@@ -14,7 +13,7 @@ const NAME_LINES = ['Alexander Zambrana', 'Rodriguez'];
 const ROLE = 'Software Engineer';
 const SOCIALS = [
   { id: 'mail', label: 'Correo', value: 'zambrana046@gmail.com', href: 'mailto:zambrana046@gmail.com' },
-  { id: 'phone', label: 'Teléfono', value: '+506 6006 1848', href: 'tel:+50660061848' },
+  { id: 'whatsapp', label: 'WhatsApp', value: '+506 6006 1848', href: 'https://wa.me/50660061848', external: true },
   {
     id: 'linkedin',
     label: 'LinkedIn',
@@ -65,8 +64,6 @@ const App = () => {
       </main>
 
       <Footer name={NAME_LINES.join(' ')} role={ROLE} socials={SOCIALS} />
-
-      <GithubBubble href={GITHUB_URL} />
     </>
   );
 };
