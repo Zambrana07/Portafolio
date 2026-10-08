@@ -48,7 +48,7 @@
 
 .chapter-title {
   margin: 0.5rem 0 0;
-  font-family: var(--font-ornate);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: clamp(1.75rem, 7.5vw, 4.5rem);
   line-height: 1.1;
@@ -174,7 +174,7 @@
 
 .featured-relic-title {
   margin: 0.4rem 0 1rem;
-  font-family: var(--font-ornate);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: clamp(2.2rem, 4vw, 3.2rem);
   line-height: 1.05;
@@ -238,7 +238,7 @@
 
 .relic-stat-value {
   flex-shrink: 0;
-  font-family: var(--font-ornate);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: 3.5rem;
   line-height: 1;
@@ -278,7 +278,7 @@
 
 .relic-title {
   margin: 0.4rem 0 1rem;
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: 1.9rem;
 }

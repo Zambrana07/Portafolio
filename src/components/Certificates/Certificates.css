@@ -89,7 +89,7 @@
 
 .cert-card-title {
   display: block;
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: 1.35rem;
   line-height: 1.25;

@@ -1,4 +1,12 @@
+@font-face {
+  font-family: 'Blasphemous';
+  src: url('/fonts/blasphemous/blasphemous.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
+  font-synthesis: none;
+  --font-title: 'Blasphemous', 'Cinzel', serif;
   --font-ornate: 'Cinzel Decorative', 'Cinzel', serif;
   --font-display: 'Cinzel', serif;
   --font-body: 'Cormorant Garamond', Georgia, serif;

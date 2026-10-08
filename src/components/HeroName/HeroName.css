@@ -2,7 +2,7 @@
   margin: 0;
   padding: 3rem 1rem 1rem;
   text-align: center;
-  font-family: var(--font-ornate);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: clamp(1.4rem, 5.6vw, 4.5rem);
   line-height: 1.2;

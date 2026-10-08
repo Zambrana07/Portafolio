@@ -63,6 +63,17 @@ const App = () => {
           </a>
           .
         </p>
+        <p>
+          Tipografía{' '}
+          <a href="https://fontstruct.com/fontstructions/show/2138043" target="_blank" rel="noopener noreferrer">
+            “Blasphemous”
+          </a>{' '}
+          por Patrick H. Lauke, bajo licencia{' '}
+          <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">
+            CC BY 3.0
+          </a>
+          .
+        </p>
         <p>Inspirado en Blasphemous de The Game Kitchen. Sitio personal sin afiliación oficial.</p>
       </footer>
 

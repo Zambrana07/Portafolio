@@ -42,7 +42,7 @@
 
 .skill-card-title {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-title);
   font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.25;
