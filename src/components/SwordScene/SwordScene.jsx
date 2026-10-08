@@ -115,7 +115,7 @@ const SwordScene = ({ modelUrl }) => {
     const key = new THREE.DirectionalLight(0xffd59a, 2.4);
     key.position.set(3, 5, 6);
     scene.add(key);
-    const rim = new THREE.DirectionalLight(0xff2a2a, 2);
+    const rim = new THREE.DirectionalLight(0x7fa6ff, 2);
     rim.position.set(-4, -2, -4);
     scene.add(rim);
 

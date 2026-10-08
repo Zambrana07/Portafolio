@@ -68,13 +68,13 @@ const SkillsSwiper = ({ skills }) => {
         ))}
       </ul>
       <div className="skills-controls">
-        <button type="button" className="skills-arrow" onClick={() => step(-1)} disabled={progress <= 0.01} aria-label="Habilidad anterior">
+        <button type="button" className="skills-arrow ornate-button" onClick={() => step(-1)} disabled={progress <= 0.01} aria-label="Habilidad anterior">
           <ChevronLeft />
         </button>
         <div className="skills-progress" aria-hidden="true">
           <span style={{ transform: `scaleX(${0.12 + progress * 0.88})` }} />
         </div>
-        <button type="button" className="skills-arrow" onClick={() => step(1)} disabled={progress >= 0.99} aria-label="Siguiente habilidad">
+        <button type="button" className="skills-arrow ornate-button" onClick={() => step(1)} disabled={progress >= 0.99} aria-label="Siguiente habilidad">
           <ChevronRight />
         </button>
       </div>
@@ -108,7 +108,7 @@ const SkillsCarousel = ({ skills }) => {
         draggable
         parallax={0.3}
         stretch={0.5}
-        fadeColor="#0b0807"
+        fadeColor="#07090d"
         depthFade={0.6}
         innerShade={0.6}
         cornerRadius={4}

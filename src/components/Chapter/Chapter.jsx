@@ -9,8 +9,8 @@ const TILT_X = 10;
 const TILT_Y = 14;
 
 const RelicCard = ({ item, numeral }) => (
-  <article className={`relic-card pixel-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}`}>
-    <span className="relic-numeral" aria-hidden="true">
+  <article className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}`}>
+    <span className="relic-numeral ornate-button" aria-hidden="true">
       {numeral}
     </span>
     <p className="relic-meta">{item.meta}</p>
@@ -34,7 +34,7 @@ const RelicCard = ({ item, numeral }) => (
     {item.links.length > 0 && (
       <div className="relic-links">
         {item.links.map(link => (
-          <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+          <a key={link.href} className="ornate-button" href={link.href} target="_blank" rel="noopener noreferrer">
             {link.label} <ArrowIcon />
           </a>
         ))}
@@ -44,8 +44,8 @@ const RelicCard = ({ item, numeral }) => (
 );
 
 const FeaturedRelic = ({ item }) => (
-  <a className="featured-relic pixel-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
-    <span className="featured-relic-badge">
+  <a className="featured-relic ornate-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
+    <span className="featured-relic-badge ornate-button">
       <CrossIcon /> Opus Magnum <CrossIcon />
     </span>
     <div className="featured-relic-media">
@@ -62,7 +62,7 @@ const FeaturedRelic = ({ item }) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
-      <span className="featured-relic-cta tilt-pop">
+      <span className="featured-relic-cta ornate-button tilt-pop">
         Visitar Evolve <ArrowIcon />
       </span>
     </div>

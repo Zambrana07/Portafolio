@@ -2,12 +2,14 @@
   --font-ornate: 'Cinzel Decorative', 'Cinzel', serif;
   --font-display: 'Cinzel', serif;
   --font-body: 'Cormorant Garamond', Georgia, serif;
-  --black: #0b0807;
+  --black: #07090d;
   --crimson: #7a1212;
   --crimson-light: #c0353f;
   --gold: #c9a55a;
   --bone: #e8dcc4;
   --bone-muted: #b9ab90;
+  --panel-top: rgba(29, 36, 51, 0.96);
+  --panel-bottom: rgba(13, 16, 24, 0.96);
   --frame-gold: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'><path fill='%231a0e05' d='M2 0h8v1h-8zM1 1h1v1h-1zM10 1h1v1h-1zM0 2h1v8h-1zM11 2h1v8h-1zM1 10h1v1h-1zM10 10h1v1h-1zM2 11h8v1h-8z'/><path fill='%23f3dc96' d='M2 1h8v1h-8zM1 2h1v8h-1z'/><path fill='%23c9a55a' d='M2 2h8v1h-8zM2 3h1v7h-1zM9 3h1v6h-1zM3 9h7v1h-7z'/><path fill='%237d5f28' d='M10 2h1v8h-1zM2 10h8v1h-8z'/><path fill='%233a2410' d='M3 3h6v1h-6zM3 4h1v5h-1zM8 4h1v5h-1zM4 8h4v1h-4z'/></svg>");
   --frame-crimson: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'><path fill='%231a0505' d='M2 0h8v1h-8zM1 1h1v1h-1zM10 1h1v1h-1zM0 2h1v8h-1zM11 2h1v8h-1zM1 10h1v1h-1zM10 10h1v1h-1zM2 11h8v1h-8z'/><path fill='%23e0606a' d='M2 1h8v1h-8zM1 2h1v8h-1z'/><path fill='%23c0353f' d='M2 2h8v1h-8zM2 3h1v7h-1zM9 3h1v6h-1zM3 9h7v1h-7z'/><path fill='%236e1010' d='M10 2h1v8h-1zM2 10h8v1h-8z'/><path fill='%232a0808' d='M3 3h6v1h-6zM3 4h1v5h-1zM8 4h1v5h-1zM4 8h4v1h-4z'/></svg>");
 }
@@ -26,6 +28,55 @@
 
 .pixel-frame--crimson {
   border-image-source: var(--frame-crimson);
+}
+
+.ornate-frame {
+  border: 1px solid transparent;
+  border-image: url('/ui/frame-ornate.svg') 15 / 30px / 13px stretch;
+  background-clip: padding-box;
+}
+
+.ornate-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  padding: 0.6rem 1.35rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #e3c47f;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bottom)) padding-box;
+  border: 1px solid transparent;
+  border-image: url('/ui/frame-ornate.svg') 15 / 15px / 6px stretch;
+  transition: color 0.2s ease, text-shadow 0.2s ease, filter 0.2s ease, transform 0.12s ease;
+}
+
+.ornate-button:hover,
+.ornate-button:focus-visible {
+  color: #fff1cc;
+  text-shadow: 0 0 10px rgba(227, 196, 127, 0.6);
+  filter: brightness(1.2);
+  outline: none;
+}
+
+.ornate-button:active {
+  transform: scale(0.95);
+}
+
+.ornate-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: none) {
+  .ornate-button {
+    color: #fff1cc;
+    text-shadow: 0 0 10px rgba(227, 196, 127, 0.45);
+  }
 }
 
 .gold-text {

@@ -19,8 +19,8 @@ const Certificates = ({ items }) => {
     <>
       <div className="cert-grid">
         {items.map((cert, i) => (
-          <button key={cert.title} type="button" className="cert-card pixel-frame tilt-card chapter-reveal" onClick={() => open(cert)}>
-            <span className="cert-card-numeral">{ROMAN[i]}</span>
+          <button key={cert.title} type="button" className="cert-card ornate-frame tilt-card chapter-reveal" onClick={() => open(cert)}>
+            <span className="cert-card-numeral ornate-button">{ROMAN[i]}</span>
             <span className="cert-card-media">
               <img src={cert.image} alt="" loading="lazy" />
             </span>
@@ -29,7 +29,7 @@ const Certificates = ({ items }) => {
               <GoldText className="cert-card-title tilt-pop">{cert.title}</GoldText>
               <span className="cert-card-date">{cert.date}</span>
               <span className="cert-card-detail">{cert.detail}</span>
-              <span className="cert-card-cta">Ver certificado</span>
+              <span className="cert-card-cta ornate-button">Ver certificado</span>
             </span>
           </button>
         ))}
@@ -42,12 +42,12 @@ const Certificates = ({ items }) => {
         onClose={() => setActive(null)}
       >
         {active && (
-          <figure className="cert-dialog-figure pixel-frame">
+          <figure className="cert-dialog-figure ornate-frame">
             <img src={active.image} alt={`Certificado: ${active.title}`} />
             <figcaption>
               {active.title} · {active.issuer}
             </figcaption>
-            <button type="button" className="cert-dialog-close" onClick={close} aria-label="Cerrar">
+            <button type="button" className="cert-dialog-close ornate-button" onClick={close} aria-label="Cerrar">
               ×
             </button>
           </figure>

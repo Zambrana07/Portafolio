@@ -52,18 +52,20 @@ void main() {
   vec2 q = vec2(fbm(p * 1.5 + vec2(0.0, t)), fbm(p * 1.5 + vec2(5.2, -t)));
   float smoke = fbm(p * 2.0 + q * 1.5 + vec2(t * 0.5, -t * 1.5));
 
-  vec3 base = vec3(0.035, 0.022, 0.02);
-  vec3 crimson = vec3(0.42, 0.05, 0.06);
-  vec3 gold = vec3(0.78, 0.6, 0.32);
+  vec3 base = vec3(0.016, 0.02, 0.03);
+  vec3 steel = vec3(0.11, 0.18, 0.29);
+  vec3 crimson = vec3(0.3, 0.04, 0.05);
+  vec3 pale = vec3(0.72, 0.78, 0.86);
 
   vec3 col = base;
   float bottomGlow = 1.0 - smoothstep(0.0, 0.9, uv.y);
-  col += crimson * smoke * bottomGlow * 0.9;
+  col += steel * smoke * bottomGlow * 0.95;
+  col += crimson * smoke * pow(bottomGlow, 3.0) * 0.35;
 
   float shaftWidth = 0.08 + (1.0 - uv.y) * 0.3;
   float shaft = (1.0 - smoothstep(0.0, shaftWidth, abs(p.x))) * smoothstep(0.0, 1.0, uv.y);
-  col += gold * shaft * smoke * 0.22;
-  col += vec3(0.08, 0.05, 0.04) * smoke * 0.5;
+  col += pale * shaft * smoke * 0.2;
+  col += vec3(0.045, 0.055, 0.075) * smoke * 0.6;
 
   float vig = 1.0 - smoothstep(0.3, 1.2, length(p * vec2(0.9, 1.1)));
   col *= vig;

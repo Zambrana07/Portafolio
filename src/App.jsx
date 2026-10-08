@@ -37,7 +37,7 @@ const App = () => {
           </a>
         </section>
 
-        <Chapter id="proyectos" numeral="I" title="Opera" subtitle="Proyectos" featured={featuredProject} items={projects} />
+        <Chapter id="proyectos" numeral="I" title="Proyectos" subtitle="Opera" featured={featuredProject} items={projects} />
         <Chapter id="experiencia" numeral="II" title="Experientia" subtitle="Experiencia" items={experience} />
         <Chapter id="habilidades" numeral="III" title="Artes" subtitle="Habilidades">
           <SkillsCarousel skills={skills} />
