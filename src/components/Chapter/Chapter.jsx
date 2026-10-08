@@ -5,8 +5,8 @@ import { SWORD_FOCUS_EVENT } from '../../lib/swordFocus';
 import './Chapter.css';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
-const TILT_X = 10;
-const TILT_Y = 14;
+const TILT_X = 3;
+const TILT_Y = 4;
 
 const RelicCard = ({ item, numeral }) => (
   <article className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}`}>
@@ -81,8 +81,6 @@ const useCardTilt = sectionRef => {
         const py = (e.clientY - r.top) / r.height;
         card.style.setProperty('--ry', `${(px - 0.5) * TILT_Y}deg`);
         card.style.setProperty('--rx', `${(0.5 - py) * TILT_X}deg`);
-        card.style.setProperty('--mx', `${px * 100}%`);
-        card.style.setProperty('--my', `${py * 100}%`);
       };
       const enter = () => {
         card.classList.add('is-tilting');

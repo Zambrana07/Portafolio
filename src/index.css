@@ -143,8 +143,6 @@
 .tilt-card {
   --rx: 0deg;
   --ry: 0deg;
-  --mx: 50%;
-  --my: 50%;
   transform-style: preserve-3d;
 }
 
@@ -152,27 +150,10 @@
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
 }
 
-.tilt-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 236, 190, 0.16), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
 .tilt-card.tilt-ready.is-tilting {
-  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(60px) scale(1.03);
-  transition: transform 0.15s ease-out, box-shadow 0.4s ease;
-  box-shadow:
-    0 50px 90px rgba(0, 0, 0, 0.85),
-    0 0 50px rgba(201, 165, 90, 0.25);
-}
-
-.tilt-card.is-tilting::after {
-  opacity: 1;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(40px) scale(1.02);
+  transition: transform 0.35s ease-out, box-shadow 0.4s ease;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
 }
 
 .tilt-card .tilt-pop {
@@ -180,7 +161,7 @@
 }
 
 .tilt-card.is-tilting .tilt-pop {
-  transform: translateZ(50px);
+  transform: translateZ(25px);
 }
 
 @media (prefers-reduced-motion: reduce) {
