@@ -43,7 +43,7 @@ export const experience = [
     title: 'Circuito 5',
     meta: 'Práctica profesional · 2 meses',
     description:
-      'La empresa necesitaba activar a mano cerca de 2,000 artículos, uno por uno. Desde mis primeros días diseñé y desarrollé un software que automatiza por completo el registro de artículos en la base de datos, llevando la página de 500 a más de 1,800 artículos publicados en una sola ejecución.',
+      'La empresa necesitaba activar a mano cerca de 2,000 artículos, uno por uno. Desde mis primeros días diseñé y desarrollé un software que automatiza por completo el registro de artículos en la base de datos, llevando la página de 500 a más de 2900 artículos publicados en una sola ejecución.',
     highlight: { value: '100%', label: 'del registro de artículos automatizado: cero activaciones manuales' },
     tags: ['Automatización', 'Software interno', 'Diseño de soluciones'],
     links: []
