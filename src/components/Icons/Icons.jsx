@@ -15,6 +15,26 @@ const PixelIcon = ({ grid, className = '' }) => (
   </svg>
 );
 
+export const PixelArt = ({ grid, palette, className = '' }) => (
+  <svg
+    className={className}
+    viewBox={`0 0 ${grid[0].length} ${grid.length}`}
+    shapeRendering="crispEdges"
+    aria-hidden="true"
+    focusable="false"
+  >
+    {Object.entries(palette).map(([key, color]) => (
+      <path
+        key={key}
+        fill={color}
+        d={grid
+          .flatMap((row, y) => [...row].map((c, x) => (c === key ? `M${x} ${y}h1v1h-1z` : '')))
+          .join('')}
+      />
+    ))}
+  </svg>
+);
+
 const CROSS = ['.XXXXX.', '..XXX..', 'X..X..X', 'XXXXXXX', 'X..X..X', '..XXX..', '.XXXXX.'];
 const ARROW = ['...XXXX', '....XXX', '...XXXX', '..XXX.X', '.XXX...', 'XXX....', 'XX.....'];
 const CHEVRON_LEFT = ['....XX', '...XX.', '..XX..', '.XX...', 'XX....', '.XX...', '..XX..', '...XX.', '....XX'];

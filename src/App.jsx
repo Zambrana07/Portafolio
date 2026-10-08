@@ -5,6 +5,7 @@ import Chapter from './components/Chapter/Chapter';
 import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
 import Certificates from './components/Certificates/Certificates';
 import Footer from './components/Footer/Footer';
+import ScrollRelic from './components/ScrollRelic/ScrollRelic';
 import { CrossIcon, GoldText } from './components/Icons/Icons';
 import { featuredProject, projects, experience, skills, certificates } from './data/portfolio';
 
@@ -64,6 +65,7 @@ const App = () => {
       </main>
 
       <Footer name={NAME_LINES.join(' ')} role={ROLE} socials={SOCIALS} />
+      <ScrollRelic />
     </>
   );
 };
