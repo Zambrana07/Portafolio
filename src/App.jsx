@@ -4,7 +4,9 @@ import HeroName from './components/HeroName/HeroName';
 import Chapter from './components/Chapter/Chapter';
 import GithubBubble from './components/GithubBubble/GithubBubble';
 import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
-import { featuredProject, projects, experience, skills } from './data/portfolio';
+import Certificates from './components/Certificates/Certificates';
+import { CrossIcon } from './components/Icons/Icons';
+import { featuredProject, projects, experience, skills, certificates } from './data/portfolio';
 
 const GITHUB_URL = 'https://github.com/Zambrana07';
 const NAME_LINES = ['Alexander Zambrana', 'Rodriguez'];
@@ -18,12 +20,17 @@ const App = () => {
 
       <main className="page">
         <section className="hero" id="inicio">
-          <p className="hero-kicker">✠ Portafolio ✠</p>
+          <p className="hero-kicker">
+            <CrossIcon />
+            Portafolio
+            <CrossIcon />
+          </p>
           <HeroName lines={NAME_LINES} />
           <nav className="hero-menu" aria-label="Secciones">
             <a href="#proyectos">Proyectos</a>
             <a href="#experiencia">Experiencia</a>
             <a href="#habilidades">Habilidades</a>
+            <a href="#certificados">Certificados</a>
           </nav>
           <a className="hero-scroll" href="#proyectos">
             Desliza para continuar
@@ -34,6 +41,9 @@ const App = () => {
         <Chapter id="experiencia" numeral="II" title="Experientia" subtitle="Experiencia" items={experience} />
         <Chapter id="habilidades" numeral="III" title="Artes" subtitle="Habilidades">
           <SkillsCarousel skills={skills} />
+        </Chapter>
+        <Chapter id="certificados" numeral="IV" title="Diplomata" subtitle="Certificados">
+          <Certificates items={certificates} />
         </Chapter>
       </main>
 

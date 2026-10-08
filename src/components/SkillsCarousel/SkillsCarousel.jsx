@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CircularCarousel from '../CircularCarousel/CircularCarousel';
+import { ChevronLeft, ChevronRight, CrossIcon } from '../Icons/Icons';
 import './SkillsCarousel.css';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV'];
@@ -17,9 +18,9 @@ const useLiteMode = () => {
 };
 
 const renderSkill = (skill, index) => (
-  <div className="skill-card">
+  <div className="skill-card pixel-frame pixel-frame--crimson">
     <span className="skill-card-numeral">{ROMAN[index]}</span>
-    <span className="skill-card-cross">✠</span>
+    <CrossIcon className="skill-card-cross" />
     <p className="skill-card-title">{skill.title}</p>
     <p className="skill-card-category">{skill.subtitle}</p>
   </div>
@@ -35,25 +36,56 @@ const SkillsList = ({ skills }) => (
   </ul>
 );
 
+const SkillsSwiper = ({ skills }) => {
+  const scrollerRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    const update = () => {
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      setProgress(max > 0 ? scroller.scrollLeft / max : 0);
+    };
+    update();
+    scroller.addEventListener('scroll', update, { passive: true });
+    return () => scroller.removeEventListener('scroll', update);
+  }, []);
+
+  const step = dir => {
+    const scroller = scrollerRef.current;
+    const card = scroller.firstElementChild;
+    const gap = parseFloat(getComputedStyle(scroller).columnGap) || 0;
+    scroller.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
+  };
+
+  return (
+    <div className="skills-stage skills-stage--lite chapter-reveal">
+      <ul ref={scrollerRef} className="skills-swiper" aria-label="Habilidades">
+        {skills.map((skill, i) => (
+          <li key={skill.title} className="skills-swiper-card">
+            {renderSkill(skill, i)}
+          </li>
+        ))}
+      </ul>
+      <div className="skills-controls">
+        <button type="button" className="skills-arrow" onClick={() => step(-1)} disabled={progress <= 0.01} aria-label="Habilidad anterior">
+          <ChevronLeft />
+        </button>
+        <div className="skills-progress" aria-hidden="true">
+          <span style={{ transform: `scaleX(${0.12 + progress * 0.88})` }} />
+        </div>
+        <button type="button" className="skills-arrow" onClick={() => step(1)} disabled={progress >= 0.99} aria-label="Siguiente habilidad">
+          <ChevronRight />
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const SkillsCarousel = ({ skills }) => {
   const lite = useLiteMode();
 
-  if (lite) {
-    return (
-      <div className="skills-stage skills-stage--lite chapter-reveal">
-        <div className="skills-marquee" aria-hidden="true">
-          <div className="skills-marquee-track">
-            {[...skills, ...skills].map((skill, i) => (
-              <div key={i} className="skills-marquee-card">
-                {renderSkill(skill, i % skills.length)}
-              </div>
-            ))}
-          </div>
-        </div>
-        <SkillsList skills={skills} />
-      </div>
-    );
-  }
+  if (lite) return <SkillsSwiper skills={skills} />;
 
   return (
     <div className="skills-stage chapter-reveal">

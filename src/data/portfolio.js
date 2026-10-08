@@ -64,3 +64,27 @@ export const skills = [
   { title: 'Vite', subtitle: 'Herramientas' },
   { title: 'Git y GitHub', subtitle: 'Control de versiones' }
 ];
+
+export const certificates = [
+  {
+    title: 'Unity Certified User: Programmer',
+    issuer: 'Unity Technologies',
+    date: 'Noviembre 2025',
+    detail: 'Credencial J727-4TVQ · verificable en Certiport',
+    image: '/images/certs/unity.webp'
+  },
+  {
+    title: 'CCNA: Introducción a las redes',
+    issuer: 'Cisco Networking Academy · Colegio Técnico Profesional CIT',
+    date: 'Diciembre 2025',
+    detail: 'Curso del programa Cisco Networking Academy',
+    image: '/images/certs/cisco.webp'
+  },
+  {
+    title: 'Certificación en Emprendimiento e Innovación',
+    issuer: 'CENECOOP R.L. · DETCE-MEP',
+    date: 'Abril 2026',
+    detail: '160 horas · Análisis estratégico, finanzas, planeación e innovación',
+    image: '/images/certs/cenecoop.webp'
+  }
+];

@@ -4,15 +4,10 @@
   z-index: 1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1.6s ease;
-}
-
-.sword-scene--ready {
-  opacity: 0.38;
 }
 
 .sword-scene--missing {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .sword-scene canvas {
@@ -33,10 +28,4 @@
   background: rgba(122, 18, 18, 0.6);
   border: 1px solid rgba(201, 165, 90, 0.5);
   white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-  .sword-scene--ready {
-    opacity: 0.22;
-  }
 }

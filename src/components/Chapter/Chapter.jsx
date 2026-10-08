@@ -1,19 +1,25 @@
 import { useEffect, useRef } from 'react';
 import { animate } from 'animejs';
+import { ArrowIcon, CrossIcon, GoldText } from '../Icons/Icons';
+import { SWORD_FOCUS_EVENT } from '../../lib/swordFocus';
 import './Chapter.css';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+const TILT_X = 10;
+const TILT_Y = 14;
 
 const RelicCard = ({ item, numeral }) => (
-  <article className={`relic-card${item.highlight ? ' relic-card--highlight' : ''}`}>
+  <article className={`relic-card pixel-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}`}>
     <span className="relic-numeral" aria-hidden="true">
       {numeral}
     </span>
     <p className="relic-meta">{item.meta}</p>
-    <h3 className="relic-title">{item.title}</h3>
+    <GoldText as="h3" className="relic-title tilt-pop">
+      {item.title}
+    </GoldText>
     {item.highlight && (
-      <div className="relic-stat">
-        <span className="relic-stat-value">{item.highlight.value}</span>
+      <div className="relic-stat tilt-pop">
+        <GoldText className="relic-stat-value">{item.highlight.value}</GoldText>
         <span className="relic-stat-label">{item.highlight.label}</span>
       </div>
     )}
@@ -29,7 +35,7 @@ const RelicCard = ({ item, numeral }) => (
       <div className="relic-links">
         {item.links.map(link => (
           <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
-            {link.label} ↗
+            {link.label} <ArrowIcon />
           </a>
         ))}
       </div>
@@ -38,31 +44,84 @@ const RelicCard = ({ item, numeral }) => (
 );
 
 const FeaturedRelic = ({ item }) => (
-  <a className="featured-relic" href={item.href} target="_blank" rel="noopener noreferrer">
+  <a className="featured-relic pixel-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
+    <span className="featured-relic-badge">
+      <CrossIcon /> Opus Magnum <CrossIcon />
+    </span>
     <div className="featured-relic-media">
       <img src={item.image} alt={`Vista de ${item.title}`} loading="lazy" />
     </div>
     <div className="featured-relic-body">
       <p className="relic-meta">{item.meta}</p>
-      <h3 className="featured-relic-title">{item.title}</h3>
+      <GoldText as="h3" className="featured-relic-title tilt-pop">
+        {item.title}
+      </GoldText>
       <p className="relic-desc">{item.description}</p>
       <ul className="relic-tags">
         {item.tags.map(tag => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
-      <span className="featured-relic-cta">Visitar Evolve ↗</span>
+      <span className="featured-relic-cta tilt-pop">
+        Visitar Evolve <ArrowIcon />
+      </span>
     </div>
   </a>
 );
 
+const useCardTilt = sectionRef => {
+  useEffect(() => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const cards = [...sectionRef.current.querySelectorAll('.tilt-card')];
+
+    const handlers = cards.map(card => {
+      const move = e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ry', `${(px - 0.5) * TILT_Y}deg`);
+        card.style.setProperty('--rx', `${(0.5 - py) * TILT_X}deg`);
+        card.style.setProperty('--mx', `${px * 100}%`);
+        card.style.setProperty('--my', `${py * 100}%`);
+      };
+      const enter = () => {
+        card.classList.add('is-tilting');
+        window.dispatchEvent(new CustomEvent(SWORD_FOCUS_EVENT, { detail: card }));
+      };
+      const leave = () => {
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+        window.dispatchEvent(new CustomEvent(SWORD_FOCUS_EVENT, { detail: null }));
+      };
+      card.addEventListener('pointermove', move);
+      card.addEventListener('pointerenter', enter);
+      card.addEventListener('pointerleave', leave);
+      return { card, move, enter, leave };
+    });
+
+    return () =>
+      handlers.forEach(({ card, move, enter, leave }) => {
+        card.removeEventListener('pointermove', move);
+        card.removeEventListener('pointerenter', enter);
+        card.removeEventListener('pointerleave', leave);
+      });
+  }, [sectionRef]);
+};
+
 const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children }) => {
   const sectionRef = useRef(null);
+  useCardTilt(sectionRef);
 
   useEffect(() => {
-    const targets = sectionRef.current.querySelectorAll('.chapter-header, .relic-card, .featured-relic, .chapter-reveal');
+    const targets = sectionRef.current.querySelectorAll(
+      '.chapter-header, .relic-card, .featured-relic, .chapter-reveal'
+    );
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      targets.forEach(el => (el.style.opacity = 1));
+      targets.forEach(el => {
+        el.style.opacity = 1;
+        el.classList.add('tilt-ready');
+      });
       return;
     }
 
@@ -79,6 +138,7 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
             onComplete: () => {
               entry.target.style.filter = '';
               entry.target.style.transform = '';
+              entry.target.classList.add('tilt-ready');
             }
           });
           observer.unobserve(entry.target);
@@ -92,12 +152,22 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
 
   return (
     <section ref={sectionRef} id={id} className="chapter">
+      <div className="chapter-rule" aria-hidden="true">
+        <span />
+        <CrossIcon />
+        <span />
+      </div>
+
       <header className="chapter-header">
         <p className="chapter-numeral">Capitulum {numeral}</p>
-        <h2 className="chapter-title">{title}</h2>
+        <GoldText as="h2" className="chapter-title">
+          {title}
+        </GoldText>
         <p className="chapter-subtitle">{subtitle}</p>
         <div className="chapter-divider" aria-hidden="true">
-          <span />✠<span />
+          <span />
+          <CrossIcon />
+          <span />
         </div>
       </header>
 
