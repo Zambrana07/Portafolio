@@ -84,7 +84,7 @@ export const certificates = [
     title: 'Certificación en Emprendimiento e Innovación',
     issuer: 'CENECOOP R.L. · DETCE-MEP',
     date: 'Abril 2026',
-    detail: '160 horas · Análisis estratégico, finanzas, planeación e innovación',
+    detail: '160 horas · Nota 81 · Análisis estratégico, finanzas, planeación e innovación',
     image: '/images/certs/cenecoop.webp'
   }
 ];
