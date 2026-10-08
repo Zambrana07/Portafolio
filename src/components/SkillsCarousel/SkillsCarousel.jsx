@@ -108,7 +108,7 @@ const SkillsCarousel = ({ skills }) => {
         draggable
         parallax={0.3}
         stretch={0.5}
-        fadeColor="#07090d"
+        fadeColor="#0b0807"
         depthFade={0.6}
         innerShade={0.6}
         cornerRadius={4}

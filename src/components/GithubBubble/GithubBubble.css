@@ -7,14 +7,14 @@
   height: 3.6rem;
   padding: 0;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(120, 150, 190, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(163, 32, 42, 0.35);
 }
 
 .github-bubble::after {
   content: '';
   position: absolute;
   inset: -50%;
-  background: linear-gradient(115deg, transparent 42%, rgba(230, 236, 255, 0.22) 50%, transparent 58%);
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 230, 170, 0.3) 50%, transparent 58%);
   transform: translateX(-100%);
   animation: github-bubble-sheen 6s ease-in-out infinite;
   pointer-events: none;

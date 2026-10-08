@@ -47,7 +47,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-bottom: 2px solid #4a443a;
-  background: #0d1018;
+  background: #120c0a;
 }
 
 .cert-card-media img {
@@ -63,7 +63,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(13, 16, 24, 0.75));
+  background: linear-gradient(180deg, transparent 55%, rgba(12, 8, 7, 0.75));
 }
 
 .cert-card:hover .cert-card-media img,
@@ -132,7 +132,7 @@
 }
 
 .cert-dialog::backdrop {
-  background: rgba(4, 6, 10, 0.9);
+  background: rgba(5, 3, 3, 0.88);
 }
 
 .cert-dialog-figure {
