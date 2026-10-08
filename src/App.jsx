@@ -5,11 +5,25 @@ import Chapter from './components/Chapter/Chapter';
 import GithubBubble from './components/GithubBubble/GithubBubble';
 import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
 import Certificates from './components/Certificates/Certificates';
-import { CrossIcon } from './components/Icons/Icons';
+import Footer from './components/Footer/Footer';
+import { CrossIcon, GoldText } from './components/Icons/Icons';
 import { featuredProject, projects, experience, skills, certificates } from './data/portfolio';
 
 const GITHUB_URL = 'https://github.com/Zambrana07';
 const NAME_LINES = ['Alexander Zambrana', 'Rodriguez'];
+const ROLE = 'Software Engineer';
+const SOCIALS = [
+  { id: 'mail', label: 'Correo', value: 'zambrana046@gmail.com', href: 'mailto:zambrana046@gmail.com' },
+  { id: 'phone', label: 'Teléfono', value: '+506 6006 1848', href: 'tel:+50660061848' },
+  {
+    id: 'linkedin',
+    label: 'LinkedIn',
+    value: 'Alexander Zambrana',
+    href: 'https://www.linkedin.com/in/alexander-zambrana-191773367/',
+    external: true
+  },
+  { id: 'github', label: 'GitHub', value: 'Zambrana07', href: GITHUB_URL, external: true }
+];
 const SWORD_MODEL_URL = '/models/mea-culpa/mea-culpa.glb';
 
 const App = () => {
@@ -26,6 +40,9 @@ const App = () => {
             <CrossIcon />
           </p>
           <HeroName lines={NAME_LINES} />
+          <GoldText as="p" className="hero-role">
+            {ROLE}
+          </GoldText>
           <nav className="hero-menu" aria-label="Secciones">
             <a href="#proyectos">Proyectos</a>
             <a href="#experiencia">Experiencia</a>
@@ -47,35 +64,7 @@ const App = () => {
         </Chapter>
       </main>
 
-      <footer className="site-footer">
-        <p>
-          Modelo 3D{' '}
-          <a href="https://sketchfab.com/3d-models/mea-culpa-sword-5c2a7df62ee040d39687f873631c5830" target="_blank" rel="noopener noreferrer">
-            “Mea Culpa-Sword”
-          </a>{' '}
-          por{' '}
-          <a href="https://sketchfab.com/Dalopera3D" target="_blank" rel="noopener noreferrer">
-            Dalopera3D
-          </a>
-          , bajo licencia{' '}
-          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-            CC BY 4.0
-          </a>
-          .
-        </p>
-        <p>
-          Tipografía{' '}
-          <a href="https://fontstruct.com/fontstructions/show/2138043" target="_blank" rel="noopener noreferrer">
-            “Blasphemous”
-          </a>{' '}
-          por Patrick H. Lauke, bajo licencia{' '}
-          <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">
-            CC BY 3.0
-          </a>
-          .
-        </p>
-        <p>Inspirado en Blasphemous de The Game Kitchen. Sitio personal sin afiliación oficial.</p>
-      </footer>
+      <Footer name={NAME_LINES.join(' ')} role={ROLE} socials={SOCIALS} />
 
       <GithubBubble href={GITHUB_URL} />
     </>

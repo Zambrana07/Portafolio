@@ -299,23 +299,12 @@ body {
   }
 }
 
-.site-footer {
-  position: relative;
-  z-index: 2;
-  padding: 6rem 1.5rem 3rem;
+.hero-role {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-title);
+  font-size: clamp(1.1rem, 3.2vw, 2.1rem);
+  letter-spacing: 0.12em;
   text-align: center;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--bone-muted);
-  opacity: 0.7;
-}
-
-.site-footer p {
-  margin: 0.3rem 0;
-}
-
-.site-footer a {
-  color: var(--gold);
 }
 
 @media (hover: none) {
