@@ -26,7 +26,7 @@ const Certificates = ({ items }) => {
             </span>
             <span className="cert-card-body">
               <span className="cert-card-issuer">{cert.issuer}</span>
-              <GoldText className="cert-card-title tilt-pop">{cert.title}</GoldText>
+              <GoldText className="cert-card-title">{cert.title}</GoldText>
               <span className="cert-card-date">{cert.date}</span>
               <span className="cert-card-detail">{cert.detail}</span>
               <span className="cert-card-cta ornate-button">Ver certificado</span>

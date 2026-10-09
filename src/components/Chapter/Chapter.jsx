@@ -14,11 +14,11 @@ const RelicCard = ({ item, numeral }) => (
       {numeral}
     </span>
     <p className="relic-meta">{item.meta}</p>
-    <GoldText as="h3" className="relic-title tilt-pop">
+    <GoldText as="h3" className="relic-title">
       {item.title}
     </GoldText>
     {item.highlight && (
-      <div className="relic-stat tilt-pop">
+      <div className="relic-stat">
         <GoldText className="relic-stat-value">{item.highlight.value}</GoldText>
         <span className="relic-stat-label">{item.highlight.label}</span>
       </div>
@@ -53,7 +53,7 @@ const FeaturedRelic = ({ item }) => (
     </div>
     <div className="featured-relic-body">
       <p className="relic-meta">{item.meta}</p>
-      <GoldText as="h3" className="featured-relic-title tilt-pop">
+      <GoldText as="h3" className="featured-relic-title">
         {item.title}
       </GoldText>
       <p className="relic-desc">{item.description}</p>
@@ -62,7 +62,7 @@ const FeaturedRelic = ({ item }) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
-      <span className="featured-relic-cta ornate-button tilt-pop">
+      <span className="featured-relic-cta ornate-button">
         Visitar Evolve <ArrowIcon />
       </span>
     </div>
