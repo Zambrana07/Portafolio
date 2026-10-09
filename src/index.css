@@ -121,22 +121,35 @@
       rgba(255, 244, 210, 0.85) 50% 54%,
       transparent 54%
     ),
-    linear-gradient(#b8954f, #b8954f);
-  background-size: 260% 100%, 100% 100%;
-  background-repeat: no-repeat;
-  background-position: 0% 0, 0 0;
+    radial-gradient(circle, #fff6d6 0 1px, transparent 1.6px),
+    radial-gradient(circle, #fbe6a8 0 1px, transparent 1.6px),
+    linear-gradient(#dcae55, #dcae55);
+  background-size: 260% 100%, 23px 19px, 37px 29px, 100% 100%;
+  background-repeat: no-repeat, repeat, repeat, no-repeat;
+  background-position: 0% 0, 0 0, 11px 7px, 0 0;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: gold-shimmer 6s ease-in-out infinite;
+  animation:
+    gold-shimmer 6s ease-in-out infinite,
+    gold-glitter 9s steps(9) infinite;
 }
 
 @keyframes gold-shimmer {
   0% {
-    background-position: 0% 0, 0 0;
+    background-position: 0% 0, 0 0, 11px 7px, 0 0;
   }
   40%,
   100% {
-    background-position: 100% 0, 0 0;
+    background-position: 100% 0, 0 0, 11px 7px, 0 0;
+  }
+}
+
+@keyframes gold-glitter {
+  0% {
+    background-size: 260% 100%, 23px 19px, 37px 29px, 100% 100%;
+  }
+  100% {
+    background-size: 260% 100%, 25px 17px, 34px 31px, 100% 100%;
   }
 }
 

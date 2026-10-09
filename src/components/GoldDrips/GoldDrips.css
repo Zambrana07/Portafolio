@@ -21,8 +21,8 @@
   width: 2px;
   height: 4px;
   margin-left: -1px;
-  background: linear-gradient(180deg, #e3c47f 0 50%, #b8954f 50%);
-  box-shadow: 0 2px 0 #7d5f28;
+  background: linear-gradient(180deg, #f7d98a 0 50%, #dcae55 50%);
+  box-shadow: 0 2px 0 #9c722b;
   opacity: 0;
   animation: gold-drip-fall 7s cubic-bezier(0.55, 0, 1, 0.45) infinite;
 }
@@ -43,8 +43,33 @@
   }
 }
 
+.gold-drips-glint {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fffbe8;
+  box-shadow: 0 0 3px 1px rgba(255, 236, 170, 0.85);
+  opacity: 0;
+  animation: gold-glint 5.2s ease-in-out infinite;
+}
+
+@keyframes gold-glint {
+  0%,
+  70%,
+  100% {
+    opacity: 0;
+  }
+  78% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 0.2;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .gold-drips-drop {
+  .gold-drips-drop,
+  .gold-drips-glint {
     display: none;
   }
 }

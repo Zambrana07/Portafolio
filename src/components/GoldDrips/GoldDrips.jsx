@@ -6,11 +6,13 @@ const PX = 2;
 const MAX_LENGTH = 18;
 const ROWS = MAX_LENGTH + 10;
 const FALLING_DROPS = 3;
+const GLINTS = 4;
 
 const PALETTE = {
-  H: '#e3c47f',
-  G: '#b8954f',
-  D: '#7d5f28'
+  W: '#fff4cf',
+  H: '#f7d98a',
+  G: '#dcae55',
+  D: '#9c722b'
 };
 
 const seededRandom = seed => {
@@ -81,6 +83,8 @@ const buildDrips = (cols, seed) => {
         for (let dx = 0; dx < width; dx++) set(x + dx, y, dx === 0 ? 'H' : 'G');
         set(right + 1, y, 'D');
       }
+      set(x, end + 1, 'W');
+      drip.glint = { x, y: end + 1 };
       for (let dx = 0; dx < width; dx++) set(x + dx, end + width + 1, 'D');
       drip.bottom = end + width + 2;
     } else {
@@ -95,7 +99,17 @@ const buildDrips = (cols, seed) => {
     .slice(0, FALLING_DROPS)
     .map(({ x, width, bottom }) => ({ left: (x + width / 2) * PX, top: bottom * PX }));
 
-  return { grid: grid.map(row => row.join('')), falling };
+  for (let x = 2; x < cols - 2; x++) {
+    if (grid[0][x] === 'H' && taper(x) > 0.25 && random() < 0.06) set(x, 0, 'W');
+  }
+
+  const glints = drips
+    .filter(drip => drip.glint)
+    .sort(() => random() - 0.5)
+    .slice(0, GLINTS)
+    .map(({ glint }) => ({ left: glint.x * PX, top: glint.y * PX }));
+
+  return { grid: grid.map(row => row.join('')), falling, glints };
 };
 
 const GoldDrips = ({ seed = 1 }) => {
@@ -124,6 +138,13 @@ const GoldDrips = ({ seed = 1 }) => {
               key={left}
               className="gold-drips-drop"
               style={{ left, top, animationDelay: `${index * 2.4}s` }}
+            />
+          ))}
+          {art.glints.map(({ left, top }, index) => (
+            <span
+              key={`${left}-${top}`}
+              className="gold-drips-glint"
+              style={{ left, top, animationDelay: `${index * 1.3}s` }}
             />
           ))}
         </>
