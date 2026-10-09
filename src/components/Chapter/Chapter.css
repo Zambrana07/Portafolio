@@ -8,10 +8,7 @@
 .chapter-rule {
   display: flex;
   align-items: center;
-  gap: 1rem;
   margin: 0 auto 5rem;
-  color: var(--gold);
-  font-size: 0.9rem;
 }
 
 .chapter-rule span {
@@ -23,12 +20,6 @@
 
 .chapter-rule span:last-child {
   background: linear-gradient(90deg, #f3dc96, var(--gold) 70%, transparent);
-}
-
-.chapter-rule .pixel-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  filter: drop-shadow(0 0 6px rgba(201, 165, 90, 0.5));
 }
 
 .chapter-header {
@@ -68,10 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   margin-top: 1.5rem;
-  color: var(--crimson-light);
-  font-size: 0.85rem;
 }
 
 .chapter-divider span {

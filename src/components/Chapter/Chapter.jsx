@@ -152,7 +152,6 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
     <section ref={sectionRef} id={id} className="chapter">
       <div className="chapter-rule" aria-hidden="true">
         <span />
-        <CrossIcon />
         <span />
       </div>
 
@@ -164,7 +163,6 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
         <p className="chapter-subtitle">{subtitle}</p>
         <div className="chapter-divider" aria-hidden="true">
           <span />
-          <CrossIcon />
           <span />
         </div>
       </header>
