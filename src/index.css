@@ -121,7 +121,7 @@
       rgba(255, 244, 210, 0.85) 50% 54%,
       transparent 54%
     ),
-    linear-gradient(180deg, #f6e2a4 0 32%, #d4b066 32% 64%, #9c7a3c 64% 100%);
+    linear-gradient(#b8954f, #b8954f);
   background-size: 260% 100%, 100% 100%;
   background-repeat: no-repeat;
   background-position: 0% 0, 0 0;
@@ -209,12 +209,9 @@ body {
 
 .hero-kicker {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(0.7rem, 1.6vw, 0.9rem);
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.85;
+  font-family: var(--font-title);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  letter-spacing: 0.3em;
 }
 
 .hero-menu {
@@ -235,11 +232,6 @@ body {
   color: var(--bone-muted);
   text-decoration: none;
   transition: color 0.25s ease, text-shadow 0.25s ease;
-}
-
-.hero-kicker .pixel-icon {
-  margin: 0 0.6em;
-  color: var(--crimson-light);
 }
 
 .hero-menu a::before {

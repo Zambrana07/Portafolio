@@ -7,7 +7,7 @@ import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
 import Certificates from './components/Certificates/Certificates';
 import Footer from './components/Footer/Footer';
 import ScrollRelic from './components/ScrollRelic/ScrollRelic';
-import { CrossIcon, GoldText } from './components/Icons/Icons';
+import { GoldText } from './components/Icons/Icons';
 import { featuredProject, projects, experience, skills, certificates } from './data/portfolio';
 
 const GITHUB_URL = 'https://github.com/Zambrana07';
@@ -54,11 +54,9 @@ const App = () => {
 
       <main className="page">
         <section className="hero" id="inicio">
-          <p className="hero-kicker">
-            <CrossIcon />
+          <GoldText as="p" className="hero-kicker">
             Portafolio
-            <CrossIcon />
-          </p>
+          </GoldText>
           <HeroName lines={NAME_LINES} />
           <GoldText as="p" className="hero-role">
             {ROLE}
