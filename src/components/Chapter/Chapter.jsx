@@ -98,12 +98,17 @@ const useCardTilt = sectionRef => {
       return { card, move, enter, leave };
     });
 
-    return () =>
+    const resetAll = () => handlers.forEach(({ card, leave }) => card.classList.contains('is-tilting') && leave());
+    window.addEventListener('blur', resetAll);
+
+    return () => {
+      window.removeEventListener('blur', resetAll);
       handlers.forEach(({ card, move, enter, leave }) => {
         card.removeEventListener('pointermove', move);
         card.removeEventListener('pointerenter', enter);
         card.removeEventListener('pointerleave', leave);
       });
+    };
   }, [sectionRef]);
 };
 

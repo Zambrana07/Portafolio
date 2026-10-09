@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import CathedralFog from './components/CathedralFog/CathedralFog';
 import SwordScene from './components/SwordScene/SwordScene';
 import HeroName from './components/HeroName/HeroName';
@@ -26,7 +27,26 @@ const SOCIALS = [
 ];
 const SWORD_MODEL_URL = '/models/mea-culpa/mea-culpa.glb';
 
+const releaseFocus = () => {
+  const active = document.activeElement;
+  if (active?.matches?.('a[target="_blank"]')) active.blur();
+};
+
 const App = () => {
+  useEffect(() => {
+    const onClick = event => {
+      if (event.target.closest?.('a[target="_blank"]')) setTimeout(releaseFocus, 0);
+    };
+    document.addEventListener('click', onClick);
+    window.addEventListener('pageshow', releaseFocus);
+    window.addEventListener('focus', releaseFocus);
+    return () => {
+      document.removeEventListener('click', onClick);
+      window.removeEventListener('pageshow', releaseFocus);
+      window.removeEventListener('focus', releaseFocus);
+    };
+  }, []);
+
   return (
     <>
       <CathedralFog />
