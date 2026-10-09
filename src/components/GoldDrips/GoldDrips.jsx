@@ -1,8 +1,11 @@
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { PixelArt } from '../Icons/Icons';
 import './GoldDrips.css';
 
-const WIDTH = 64;
-const HEIGHT = 18;
+const PX = 2;
+const MAX_LENGTH = 18;
+const ROWS = MAX_LENGTH + 10;
+const FALLING_DROPS = 3;
 
 const PALETTE = {
   H: '#e3c47f',
@@ -10,64 +13,123 @@ const PALETTE = {
   D: '#7d5f28'
 };
 
-const DRIPS = [
-  { x: 19, length: 2 },
-  { x: 26, length: 6, bulb: true },
-  { x: 32, length: 1 },
-  { x: 38, length: 10, bulb: true },
-  { x: 45, length: 3, bulb: true }
-];
-
-const LONGEST = DRIPS.reduce((a, b) => (b.length > a.length ? b : a));
-
-const buildGrid = () => {
-  const grid = Array.from({ length: HEIGHT }, () => Array(WIDTH).fill('.'));
-  const set = (x, y, c) => {
-    if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) grid[y][x] = c;
+const seededRandom = seed => {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+};
 
-  for (let x = 12; x < 52; x++) set(x, 0, x > 18 && x < 46 ? 'H' : 'G');
-  for (let x = 14; x < 50; x++) set(x, 1, x < 16 || x > 47 ? 'D' : 'G');
+const buildDrips = (cols, seed) => {
+  const random = seededRandom(seed);
+  const grid = Array.from({ length: ROWS }, () => Array(cols).fill('.'));
+  const set = (x, y, c) => {
+    if (x >= 0 && x < cols && y >= 0 && y < ROWS) grid[y][x] = c;
+  };
+  const half = cols / 2;
+  const taper = x => Math.max(0, 1 - Math.abs(x + 0.5 - half) / half);
+  const phaseA = random() * 10;
+  const phaseB = random() * 10;
+  const wave = x => (Math.sin(x * 0.19 + phaseA) + Math.sin(x * 0.07 + phaseB) + 2) / 4;
 
-  for (const { x, length, bulb } of DRIPS) {
-    for (let dx = -2; dx <= 3; dx++) set(x + dx, 2, dx === -2 || dx === 3 ? 'D' : 'G');
-    for (let dx = -1; dx <= 2; dx++) set(x + dx, 3, dx === -1 || dx === 2 ? 'D' : 'G');
-
-    const end = length + 3;
-    for (let y = 3; y < end; y++) {
-      set(x, y, 'H');
-      set(x + 1, y, 'D');
-    }
-
-    if (bulb) {
-      set(x, end, 'H');
-      set(x + 1, end, 'G');
-      set(x - 1, end + 1, 'G');
-      set(x, end + 1, 'H');
-      set(x + 1, end + 1, 'G');
-      set(x + 2, end + 1, 'D');
-      set(x - 1, end + 2, 'D');
-      set(x, end + 2, 'G');
-      set(x + 1, end + 2, 'G');
-      set(x + 2, end + 2, 'D');
-      set(x, end + 3, 'D');
-      set(x + 1, end + 3, 'D');
-    } else {
-      set(x, end, 'G');
-      set(x + 1, end, 'D');
+  const pool = [];
+  for (let x = 0; x < cols; x++) {
+    const t = taper(x);
+    const thickness = t < 0.04 ? 0 : 1 + Math.round(t * 3 * wave(x));
+    pool.push(thickness);
+    for (let y = 0; y < thickness; y++) {
+      set(x, y, y === 0 ? 'H' : y === thickness - 1 ? 'D' : 'G');
     }
   }
 
-  return grid.map(row => row.join(''));
+  const drips = [];
+  let x = 4 + Math.floor(random() * 6);
+  while (x < cols - 4) {
+    const t = taper(x);
+    const length = Math.round(MAX_LENGTH * t ** 1.5 * random() ** 1.4);
+    const width = t > 0.6 && length > 7 ? 3 : t > 0.3 && length > 3 ? 2 : 1;
+    if (length > 0) drips.push({ x, length, width });
+    x += Math.round(6 + random() * 9 + (1 - t) * 6);
+  }
+
+  for (const drip of drips) {
+    const { x, length, width } = drip;
+    const top = Math.max(1, pool[x]);
+    const right = x + width - 1;
+    const shade = dx => (width === 1 ? 'G' : dx === 0 ? 'H' : dx === width - 1 ? 'D' : 'G');
+
+    for (let cx = x - 1; cx <= right + 1; cx++) {
+      set(cx, top, cx === x - 1 || cx === right + 1 ? 'D' : 'G');
+    }
+    if (width === 3) {
+      for (let cx = x - 2; cx <= right + 2; cx++) set(cx, top - 1, 'G');
+    }
+
+    const end = top + length;
+    for (let y = top; y < end; y++) {
+      for (let dx = 0; dx < width; dx++) set(x + dx, y, shade(dx));
+    }
+
+    if (width > 1 && length >= 4) {
+      for (let dx = 0; dx < width; dx++) set(x + dx, end, shade(dx));
+      for (let y = end + 1; y <= end + width; y++) {
+        set(x - 1, y, y === end + 1 ? 'H' : 'G');
+        for (let dx = 0; dx < width; dx++) set(x + dx, y, dx === 0 ? 'H' : 'G');
+        set(right + 1, y, 'D');
+      }
+      for (let dx = 0; dx < width; dx++) set(x + dx, end + width + 1, 'D');
+      drip.bottom = end + width + 2;
+    } else {
+      for (let dx = 0; dx < width; dx++) set(x + dx, end, 'D');
+      drip.bottom = end + 1;
+    }
+  }
+
+  const falling = drips
+    .filter(drip => drip.width > 1)
+    .sort((a, b) => b.length - a.length)
+    .slice(0, FALLING_DROPS)
+    .map(({ x, width, bottom }) => ({ left: (x + width / 2) * PX, top: bottom * PX }));
+
+  return { grid: grid.map(row => row.join('')), falling };
 };
 
-const GRID = buildGrid();
+const GoldDrips = ({ seed = 1 }) => {
+  const ref = useRef(null);
+  const [cols, setCols] = useState(0);
 
-const GoldDrips = ({ flip = false }) => (
-  <div className={`gold-drips${flip ? ' gold-drips--flip' : ''}`} aria-hidden="true">
-    <PixelArt grid={GRID} palette={PALETTE} className="gold-drips-art" />
-    <span className="gold-drips-drop" style={{ '--drop-x': `${((LONGEST.x + 0.5) / WIDTH) * 100}%`, '--drop-y': `${((LONGEST.length + 7) / HEIGHT) * 100}%` }} />
-  </div>
-);
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return undefined;
+    const measure = () => setCols(Math.round(element.getBoundingClientRect().width / PX));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  const art = useMemo(() => (cols > 8 ? buildDrips(cols, seed) : null), [cols, seed]);
+
+  return (
+    <div ref={ref} className="gold-drips" style={{ height: ROWS * PX }} aria-hidden="true">
+      {art && (
+        <>
+          <PixelArt grid={art.grid} palette={PALETTE} className="gold-drips-art" />
+          {art.falling.map(({ left, top }, index) => (
+            <span
+              key={left}
+              className="gold-drips-drop"
+              style={{ left, top, animationDelay: `${index * 2.4}s` }}
+            />
+          ))}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default GoldDrips;

@@ -1,16 +1,13 @@
 .gold-drips {
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 128px;
-  height: 36px;
-  transform: translate(-50%, -1px);
+  left: 0;
+  right: 0;
+  transform: translateY(-1px);
   pointer-events: none;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
-}
-
-.gold-drips--flip {
-  transform: translate(-50%, -1px) scaleX(-1);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
 }
 
 .gold-drips-art {
@@ -21,8 +18,6 @@
 
 .gold-drips-drop {
   position: absolute;
-  left: var(--drop-x);
-  top: var(--drop-y);
   width: 2px;
   height: 4px;
   margin-left: -1px;
@@ -51,12 +46,5 @@
 @media (prefers-reduced-motion: reduce) {
   .gold-drips-drop {
     display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .gold-drips {
-    width: 96px;
-    height: 27px;
   }
 }

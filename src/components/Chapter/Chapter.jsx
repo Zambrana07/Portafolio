@@ -159,7 +159,7 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
       <div className="chapter-rule" aria-hidden="true">
         <span />
         <span />
-        <GoldDrips flip={ROMAN.indexOf(numeral) % 2 === 1} />
+        <GoldDrips seed={ROMAN.indexOf(numeral) + 7} />
       </div>
 
       <header className="chapter-header">
