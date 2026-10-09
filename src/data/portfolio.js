@@ -35,8 +35,8 @@ export const experience = [
     title: 'Global Communities',
     meta: 'Pasantía',
     description:
-      'Realicé una pasantía en Global Communities, una organización internacional de desarrollo, contribuyendo a iniciativas que ayudan a personas y comunidades en África.',
-    tags: [],
+      'Realicé una pasantía en Global Communities, una organización internacional de desarrollo, contribuyendo a iniciativas que ayudan a personas y comunidades en África. Durante la pasantía trabajé en desarrollo móvil con Android Studio y Kotlin.',
+    tags: ['Android Studio', 'Kotlin', 'Desarrollo móvil'],
     links: []
   },
   {
