@@ -1,0 +1,62 @@
+.gold-drips {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 128px;
+  height: 36px;
+  transform: translate(-50%, -1px);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6));
+}
+
+.gold-drips--flip {
+  transform: translate(-50%, -1px) scaleX(-1);
+}
+
+.gold-drips-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gold-drips-drop {
+  position: absolute;
+  left: var(--drop-x);
+  top: var(--drop-y);
+  width: 2px;
+  height: 4px;
+  margin-left: -1px;
+  background: linear-gradient(180deg, #e3c47f 0 50%, #b8954f 50%);
+  box-shadow: 0 2px 0 #7d5f28;
+  opacity: 0;
+  animation: gold-drip-fall 7s cubic-bezier(0.55, 0, 1, 0.45) infinite;
+}
+
+@keyframes gold-drip-fall {
+  0%,
+  78% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-drips-drop {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .gold-drips {
+    width: 96px;
+    height: 27px;
+  }
+}

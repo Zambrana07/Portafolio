@@ -6,6 +6,7 @@
 }
 
 .chapter-rule {
+  position: relative;
   display: flex;
   align-items: center;
   margin: 0 auto 5rem;

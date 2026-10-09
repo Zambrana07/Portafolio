@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import CathedralFog from './components/CathedralFog/CathedralFog';
-import SwordScene from './components/SwordScene/SwordScene';
 import HeroName from './components/HeroName/HeroName';
 import Chapter from './components/Chapter/Chapter';
 import SkillsCarousel from './components/SkillsCarousel/SkillsCarousel';
@@ -27,6 +26,10 @@ const SOCIALS = [
 ];
 const SWORD_MODEL_URL = '/models/mea-culpa/mea-culpa.glb';
 
+const SwordScene = lazy(() => import('./components/SwordScene/SwordScene'));
+const connection = navigator.connection;
+const LOW_DATA = Boolean(connection?.saveData || /2g/.test(connection?.effectiveType ?? ''));
+
 const releaseFocus = () => {
   const active = document.activeElement;
   if (active?.matches?.('a[target="_blank"]')) active.blur();
@@ -50,7 +53,11 @@ const App = () => {
   return (
     <>
       <CathedralFog />
-      <SwordScene modelUrl={SWORD_MODEL_URL} />
+      {!LOW_DATA && (
+        <Suspense fallback={null}>
+          <SwordScene modelUrl={SWORD_MODEL_URL} />
+        </Suspense>
+      )}
 
       <main className="page">
         <section className="hero" id="inicio">

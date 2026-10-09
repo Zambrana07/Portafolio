@@ -6,12 +6,80 @@
     <title>Alexander Zambrana Rodriguez</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#0b0807" />
+    <link rel="preload" href="/fonts/blasphemous/blasphemous.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #0b0807;
+      }
+
+      .boot {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.1rem;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding: 2rem 1rem 6rem;
+        box-sizing: border-box;
+        background: radial-gradient(ellipse at 50% 85%, rgba(122, 18, 18, 0.28), transparent 60%);
+      }
+
+      .boot-bar {
+        width: var(--w);
+        max-width: 86vw;
+        height: var(--h);
+        background:
+          linear-gradient(100deg, transparent 40%, rgba(232, 212, 138, 0.16) 50%, transparent 60%) 0 0 / 250% 100% no-repeat,
+          rgba(184, 149, 79, 0.1);
+        box-shadow: inset 0 0 0 1px rgba(184, 149, 79, 0.14);
+        animation: boot-shimmer 1.6s ease-in-out infinite;
+      }
+
+      .boot-menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 2.5rem;
+        margin-top: 1rem;
+      }
+
+      @keyframes boot-shimmer {
+        from {
+          background-position: 100% 0, 0 0;
+        }
+        to {
+          background-position: 0% 0, 0 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .boot-bar {
+          animation: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot" aria-label="Cargando" role="status">
+        <div class="boot-bar" style="--w: 8rem; --h: 0.9rem"></div>
+        <div class="boot-bar" style="--w: 30rem; --h: 3.2rem; margin-top: 1.6rem"></div>
+        <div class="boot-bar" style="--w: 18rem; --h: 3.2rem"></div>
+        <div class="boot-bar" style="--w: 14rem; --h: 1.4rem"></div>
+        <div class="boot-menu">
+          <div class="boot-bar" style="--w: 6rem; --h: 0.8rem"></div>
+          <div class="boot-bar" style="--w: 6.5rem; --h: 0.8rem"></div>
+          <div class="boot-bar" style="--w: 6.5rem; --h: 0.8rem"></div>
+          <div class="boot-bar" style="--w: 7rem; --h: 0.8rem"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

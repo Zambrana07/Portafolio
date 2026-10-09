@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { animate } from 'animejs';
 import { ArrowIcon, CrossIcon, GoldText } from '../Icons/Icons';
+import GoldDrips from '../GoldDrips/GoldDrips';
 import { SWORD_FOCUS_EVENT } from '../../lib/swordFocus';
 import './Chapter.css';
 
@@ -158,6 +159,7 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
       <div className="chapter-rule" aria-hidden="true">
         <span />
         <span />
+        <GoldDrips flip={ROMAN.indexOf(numeral) % 2 === 1} />
       </div>
 
       <header className="chapter-header">
