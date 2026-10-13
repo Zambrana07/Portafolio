@@ -46,6 +46,14 @@ const Certificates = ({ items }) => {
             <img src={active.image} alt={`Certificado: ${active.title}`} />
             <figcaption>
               {active.title} · {active.issuer}
+              {active.url && (
+                <>
+                  {' · '}
+                  <a href={active.url} target="_blank" rel="noreferrer">
+                    Verificar
+                  </a>
+                </>
+              )}
             </figcaption>
             <button type="button" className="cert-dialog-close ornate-button" onClick={close} aria-label="Cerrar">
               ×

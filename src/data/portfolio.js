@@ -86,5 +86,13 @@ export const certificates = [
     date: 'Abril 2026',
     detail: '160 horas · Nota 81 · Análisis estratégico, finanzas, planeación e innovación',
     image: '/images/certs/cenecoop.webp'
+  },
+  {
+    title: 'JavaScript Developer Certification',
+    issuer: 'freeCodeCamp',
+    date: 'Octubre 2026',
+    detail: 'Aprox. 300 horas · Examen de certificación aprobado · verificable en línea',
+    image: '/images/certs/freecodecamp-javascript.webp',
+    url: 'https://www.freecodecamp.org/certification/fcc-322467ad-e654-4706-be9d-a2b0232d8756/javascript-v9'
   }
 ];

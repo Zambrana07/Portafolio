@@ -1,7 +1,13 @@
 .cert-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 3rem 2.5rem;
+}
+
+.cert-grid > .cert-card {
+  flex: 1 1 300px;
+  max-width: calc((100% - 5rem) / 3);
 }
 
 .cert-card {
@@ -157,6 +163,11 @@
   color: var(--bone-muted);
 }
 
+.cert-dialog-figure figcaption a {
+  color: var(--gold);
+  text-underline-offset: 3px;
+}
+
 .cert-dialog-close {
   position: absolute;
   top: -1.4rem;
@@ -176,8 +187,12 @@
 
 @media (max-width: 900px) {
   .cert-grid {
-    grid-template-columns: 1fr;
     gap: 3.5rem;
+  }
+
+  .cert-grid > .cert-card {
+    flex-basis: 100%;
+    max-width: none;
   }
 
   .cert-dialog-close {
