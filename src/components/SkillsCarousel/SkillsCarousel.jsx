@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import CircularCarousel from '../CircularCarousel/CircularCarousel';
 import { ChevronLeft, ChevronRight, CrossIcon, PixelArt } from '../Icons/Icons';
 import { CENSER_SIDEWAYS, KNOT, RELIC_PALETTE } from '../ScrollRelic/relicArt';
+import { useLanguage } from '../../i18n/LanguageContext';
 import './SkillsCarousel.css';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV'];
@@ -29,8 +30,8 @@ const renderSkill = (skill, index) => (
 
 const SkillsList = ({ skills }) => (
   <ul className="skills-list-sr">
-    {skills.map(skill => (
-      <li key={skill.title}>
+    {skills.map((skill, i) => (
+      <li key={i}>
         {skill.title} ({skill.subtitle})
       </li>
     ))}
@@ -137,6 +138,7 @@ const RelicTrack = ({ scrollerRef }) => {
 };
 
 const SkillsSwiper = ({ skills }) => {
+  const { t } = useLanguage();
   const scrollerRef = useRef(null);
   const [edge, setEdge] = useState({ start: true, end: false });
 
@@ -173,19 +175,19 @@ const SkillsSwiper = ({ skills }) => {
 
   return (
     <div className="skills-stage skills-stage--lite chapter-reveal">
-      <ul ref={scrollerRef} className="skills-swiper" aria-label="Habilidades">
+      <ul ref={scrollerRef} className="skills-swiper" aria-label={t.skills.label}>
         {skills.map((skill, i) => (
-          <li key={skill.title} className="skills-swiper-card">
+          <li key={i} className="skills-swiper-card">
             {renderSkill(skill, i)}
           </li>
         ))}
       </ul>
       <div className="skills-controls">
-        <button type="button" className="skills-arrow ornate-button" onClick={() => step(-1)} disabled={edge.start} aria-label="Habilidad anterior">
+        <button type="button" className="skills-arrow ornate-button" onClick={() => step(-1)} disabled={edge.start} aria-label={t.skills.previous}>
           <ChevronLeft />
         </button>
         <RelicTrack scrollerRef={scrollerRef} />
-        <button type="button" className="skills-arrow ornate-button" onClick={() => step(1)} disabled={edge.end} aria-label="Siguiente habilidad">
+        <button type="button" className="skills-arrow ornate-button" onClick={() => step(1)} disabled={edge.end} aria-label={t.skills.next}>
           <ChevronRight />
         </button>
       </div>
@@ -194,6 +196,7 @@ const SkillsSwiper = ({ skills }) => {
 };
 
 const SkillsCarousel = ({ skills }) => {
+  const { t } = useLanguage();
   const lite = useLiteMode();
 
   if (lite) return <SkillsSwiper skills={skills} />;
@@ -203,7 +206,7 @@ const SkillsCarousel = ({ skills }) => {
       <CircularCarousel
         items={skills}
         renderItem={renderSkill}
-        label="Habilidades"
+        label={t.skills.label}
         preset="panorama"
         intro="rise"
         cardWidth={220}

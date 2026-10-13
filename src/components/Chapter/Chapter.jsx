@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { animate } from 'animejs';
 import { ArrowIcon, CrossIcon, GoldText } from '../Icons/Icons';
 import GoldDrips from '../GoldDrips/GoldDrips';
+import { useLanguage } from '../../i18n/LanguageContext';
 import { SWORD_FOCUS_EVENT } from '../../lib/swordFocus';
 import './Chapter.css';
 
@@ -44,31 +45,35 @@ const RelicCard = ({ item, numeral }) => (
   </article>
 );
 
-const FeaturedRelic = ({ item }) => (
-  <a className="featured-relic ornate-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
-    <span className="featured-relic-badge ornate-button">
-      <CrossIcon /> Opus Magnum <CrossIcon />
-    </span>
-    <div className="featured-relic-media">
-      <img src={item.image} alt={`Vista de ${item.title}`} loading="lazy" />
-    </div>
-    <div className="featured-relic-body">
-      <p className="relic-meta">{item.meta}</p>
-      <GoldText as="h3" className="featured-relic-title">
-        {item.title}
-      </GoldText>
-      <p className="relic-desc">{item.description}</p>
-      <ul className="relic-tags">
-        {item.tags.map(tag => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-      <span className="featured-relic-cta ornate-button">
-        Visitar Evolve <ArrowIcon />
+const FeaturedRelic = ({ item }) => {
+  const { t } = useLanguage();
+
+  return (
+    <a className="featured-relic ornate-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
+      <span className="featured-relic-badge ornate-button">
+        <CrossIcon /> Opus Magnum <CrossIcon />
       </span>
-    </div>
-  </a>
-);
+      <div className="featured-relic-media">
+        <img src={item.image} alt={`${t.chapter.preview} ${item.title}`} loading="lazy" />
+      </div>
+      <div className="featured-relic-body">
+        <p className="relic-meta">{item.meta}</p>
+        <GoldText as="h3" className="featured-relic-title">
+          {item.title}
+        </GoldText>
+        <p className="relic-desc">{item.description}</p>
+        <ul className="relic-tags">
+          {item.tags.map(tag => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+        <span className="featured-relic-cta ornate-button">
+          {t.chapter.visit} {item.title} <ArrowIcon />
+        </span>
+      </div>
+    </a>
+  );
+};
 
 const useCardTilt = sectionRef => {
   useEffect(() => {
