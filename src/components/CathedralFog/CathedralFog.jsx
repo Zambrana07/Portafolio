@@ -75,13 +75,15 @@ void main() {
 }
 `;
 
+const FRAME_INTERVAL_MS = 1000 / 30 - 2;
+
 const CathedralFog = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
     const coarse = window.matchMedia('(pointer: coarse)').matches;
-    const renderer = new Renderer({ dpr: coarse ? 0.6 : Math.min(window.devicePixelRatio || 1, 1.5), antialias: false });
+    const renderer = new Renderer({ dpr: coarse ? 0.5 : 0.75, antialias: false });
     const gl = renderer.gl;
     const canvas = gl.canvas;
     container.appendChild(canvas);
@@ -114,11 +116,12 @@ const CathedralFog = () => {
     window.addEventListener('pointermove', onPointerMove);
 
     let raf = 0;
-    let frame = 0;
+    let lastRender = -Infinity;
     const t0 = performance.now();
     const loop = t => {
       raf = requestAnimationFrame(loop);
-      if (coarse && frame++ % 2) return;
+      if (t - lastRender < FRAME_INTERVAL_MS) return;
+      lastRender = t;
       program.uniforms.iTime.value = (t - t0) * 0.001;
       currentMouse[0] += 0.03 * (targetMouse[0] - currentMouse[0]);
       currentMouse[1] += 0.03 * (targetMouse[1] - currentMouse[1]);

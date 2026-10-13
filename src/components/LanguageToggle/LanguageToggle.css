@@ -7,6 +7,10 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
 }
 
+.language-toggle-label {
+  display: inline-block;
+}
+
 @media (max-width: 600px) {
   .language-toggle {
     top: 0.8rem;

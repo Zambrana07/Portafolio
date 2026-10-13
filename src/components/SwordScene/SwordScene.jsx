@@ -9,6 +9,9 @@ const CAMERA_DISTANCE = 10;
 const CAMERA_FOV = 30;
 const TIP_DIRECTION = -1;
 const FADE_IN_SECONDS = 1.4;
+const MIN_PIXEL_RATIO = 0.75;
+const QUALITY_WINDOW = 90;
+const CANDIDATE_REFRESH_MS = 1000;
 
 const orientVertically = model => {
   const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
@@ -37,11 +40,11 @@ const pointAt = (tipX, tipY, dx, dy, length) => {
   };
 };
 
-const pickTarget = (hovered, vw, vh) => {
+const pickTarget = (hovered, candidates, vw, vh) => {
   if (hovered?.isConnected) return hovered;
   let best = null;
   let bestScore = Infinity;
-  document.querySelectorAll(SWORD_TARGETS).forEach(el => {
+  candidates.forEach(el => {
     const r = el.getBoundingClientRect();
     if (r.bottom <= 0 || r.top >= vh) return;
     const score = Math.abs(r.top + r.height / 2 - vh / 2) + 0.3 * Math.abs(r.left + r.width / 2 - vw / 2);
@@ -100,8 +103,9 @@ const SwordScene = ({ modelUrl }) => {
 
     const coarse = window.matchMedia('(pointer: coarse)').matches;
     const liteQuery = window.matchMedia('(max-width: 900px), (pointer: coarse)');
-    const renderer = new THREE.WebGLRenderer({ antialias: !coarse, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, coarse ? 1.25 : 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: !coarse, alpha: true, powerPreference: 'high-performance' });
+    let pixelRatio = Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5);
+    renderer.setPixelRatio(pixelRatio);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.9;
@@ -154,17 +158,33 @@ const SwordScene = ({ modelUrl }) => {
       }
     );
 
+    let layoutDirty = true;
+    const markDirty = () => (layoutDirty = true);
+
     const setSize = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      markDirty();
     };
     setSize();
     window.addEventListener('resize', setSize);
+    window.addEventListener('scroll', markDirty, { passive: true });
 
     let hovered = null;
-    const onFocus = e => (hovered = e.detail);
+    const onFocus = e => {
+      hovered = e.detail;
+      markDirty();
+    };
     window.addEventListener(SWORD_FOCUS_EVENT, onFocus);
+
+    let candidates = [];
+    let candidatesAt = -Infinity;
+    let target = null;
+    let pose = null;
+    let lastOpacity = '';
+    let slowFrames = 0;
+    let sampledFrames = 0;
 
     const current = { x: window.innerWidth / 2, y: window.innerHeight / 2, angle: Math.PI, length: window.innerHeight * 0.82, tilt: 0, opacity: 0 };
     let currentRoll = 0;
@@ -172,12 +192,23 @@ const SwordScene = ({ modelUrl }) => {
     let lastTarget;
     let flourish = 1;
     let raf = 0;
-    let frame = 0;
     let lastTime = 0;
+
+    const adaptQuality = dt => {
+      sampledFrames++;
+      if (dt > 1 / 40) slowFrames++;
+      if (sampledFrames < QUALITY_WINDOW) return;
+      if (slowFrames > QUALITY_WINDOW / 3 && pixelRatio > MIN_PIXEL_RATIO) {
+        pixelRatio = Math.max(MIN_PIXEL_RATIO, pixelRatio - 0.25);
+        renderer.setPixelRatio(pixelRatio);
+        setSize();
+      }
+      sampledFrames = 0;
+      slowFrames = 0;
+    };
 
     const loop = () => {
       raf = requestAnimationFrame(loop);
-      if (coarse && frame++ % 2) return;
       const t = clock.getElapsedTime();
       const dt = Math.min(t - lastTime, 0.1);
       lastTime = t;
@@ -185,8 +216,16 @@ const SwordScene = ({ modelUrl }) => {
 
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const target = pickTarget(hovered, vw, vh);
-      const pose = poseFor(target, vw, vh, liteQuery.matches);
+      const now = performance.now();
+      if (layoutDirty || now - candidatesAt > CANDIDATE_REFRESH_MS) {
+        if (now - candidatesAt > CANDIDATE_REFRESH_MS) {
+          candidates = [...document.querySelectorAll(SWORD_TARGETS)];
+          candidatesAt = now;
+        }
+        target = pickTarget(hovered, candidates, vw, vh);
+        pose = poseFor(target, vw, vh, liteQuery.matches);
+        layoutDirty = false;
+      }
 
       if (target !== lastTarget) {
         if (lastTarget !== undefined) {
@@ -218,8 +257,13 @@ const SwordScene = ({ modelUrl }) => {
       roll.rotation.y = currentRoll;
 
       const fade = Math.min(1, (t - loadedAt) / FADE_IN_SECONDS);
-      container.style.opacity = (current.opacity * fade).toFixed(3);
+      const opacity = (current.opacity * fade).toFixed(3);
+      if (opacity !== lastOpacity) {
+        container.style.opacity = opacity;
+        lastOpacity = opacity;
+      }
       renderer.render(scene, camera);
+      if (fade === 1) adaptQuality(dt);
     };
 
     const start = () => {
@@ -237,6 +281,7 @@ const SwordScene = ({ modelUrl }) => {
       disposed = true;
       stop();
       window.removeEventListener('resize', setSize);
+      window.removeEventListener('scroll', markDirty);
       window.removeEventListener(SWORD_FOCUS_EVENT, onFocus);
       document.removeEventListener('visibilitychange', onVisibility);
       scene.traverse(obj => {
