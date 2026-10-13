@@ -73,6 +73,23 @@ export const experience = [
       { es: 'Diseño de soluciones', en: 'Solution design' }
     ],
     links: []
+  },
+  {
+    title: { es: 'Plataforma de catálogo y precios', en: 'Catalog and pricing platform' },
+    meta: { es: 'Circuito 5 · Automatización y datos', en: 'Circuito 5 · Automation and data' },
+    description: {
+      es: 'Herramientas en Python integradas con la API de Zoho Books que completan, validan y publican el catálogo de la tienda en línea (casi 3,000 artículos), aplican la política de utilidad por subfamilia y comparan los precios contra seis fuentes del mercado costarricense, emparejando por especificación técnica y forma de venta; así se detectaron más de 350 artículos fuera de mercado. Incluye vigilantes que retiran de la tienda los productos sin stock o sin fotografía, una herramienta para buscar y preparar imágenes de producto, monitoreo del consumo de la API compartida con el equipo web y credenciales cifradas con acceso protegido.',
+      en: 'Python tools integrated with the Zoho Books API that complete, validate and publish the online store catalog (nearly 3,000 products), apply the margin policy per subfamily and compare prices against six Costa Rican market sources, matching by technical specification and unit of sale; this flagged more than 350 products priced far from market. Includes watchers that pull products without stock or photos from the store, a tool to find and prepare product images, monitoring of the API quota shared with the web team, and encrypted credentials with protected access.'
+    },
+    highlight: {
+      value: '3,892',
+      label: {
+        es: 'artículos de 76 subfamilias con su política de utilidad aplicada y verificada, sin errores',
+        en: 'products across 76 subfamilies repriced with their margin policy, verified with zero errors'
+      }
+    },
+    tags: ['Python', 'API REST', 'Zoho Books', 'OAuth 2.0', 'openpyxl', 'Web scraping'],
+    links: []
   }
 ];
 
