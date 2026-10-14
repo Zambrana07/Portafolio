@@ -186,7 +186,7 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
       {items.length > 0 && (
         <div className="chapter-list">
           {items.map((item, i) => (
-            <RelicCard key={item.title} item={item} numeral={ROMAN[i]} />
+            <RelicCard key={ROMAN[i]} item={item} numeral={ROMAN[i]} />
           ))}
         </div>
       )}
