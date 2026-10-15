@@ -146,5 +146,16 @@ export const certificates = [
     },
     image: '/images/certs/freecodecamp-javascript.webp',
     url: 'https://www.freecodecamp.org/certification/fcc-322467ad-e654-4706-be9d-a2b0232d8756/javascript-v9'
+  },
+  {
+    title: 'Front-End Development Libraries Certification',
+    issuer: 'freeCodeCamp',
+    date: { es: 'Octubre 2026', en: 'October 2026' },
+    detail: {
+      es: 'Aprox. 300 horas · Librerías de desarrollo front-end · verificable en línea',
+      en: 'About 300 hours · Front-end development libraries · verifiable online'
+    },
+    image: '/images/certs/freecodecamp-front-end-libraries.webp',
+    url: 'https://www.freecodecamp.org/certification/fcc-322467ad-e654-4706-be9d-a2b0232d8756/front-end-development-libraries-v9'
   }
 ];
