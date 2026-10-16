@@ -90,6 +90,24 @@ export const experience = [
     },
     tags: ['Python', 'API REST', 'Zoho Books', 'OAuth 2.0', 'openpyxl', 'Web scraping'],
     links: []
+  },
+  {
+    title: { es: 'Infraestructura en la nube', en: 'Cloud infrastructure' },
+    meta: { es: 'Circuito 5 · Despliegue y servidores', en: 'Circuito 5 · Deploy and servers' },
+    badges: ['cloudflare', 'hetzner', 'server', 'domain'],
+    description: {
+      es: 'Aprendí a llevar una aplicación de localhost a producción: configurar un VPS en Hetzner, entrar al servidor por SSH, montar el servicio y conectar un dominio real. También usé Cloudflare para DNS, proxy y protección del sitio, y entendí cómo se enlazan el dominio, el servidor y la nube para que la tienda y las herramientas internas queden accesibles de forma segura.',
+      en: 'Learned how to take an app from localhost to production: provision a Hetzner VPS, connect over SSH, set up the service and wire a real domain. Also used Cloudflare for DNS, proxying and site protection, and how domain, server and cloud fit together so the store and internal tools stay reachable and secure.'
+    },
+    highlight: {
+      value: 'SSH',
+      label: {
+        es: 'acceso remoto a servidores, DNS con Cloudflare y despliegue en Hetzner',
+        en: 'remote server access, Cloudflare DNS and Hetzner deployment'
+      }
+    },
+    tags: ['Cloudflare', 'Hetzner', 'SSH', 'DNS', 'VPS', { es: 'Dominios', en: 'Domains' }],
+    links: []
   }
 ];
 
@@ -106,6 +124,10 @@ export const skills = [
     title: { es: 'Habilidades para agentes de IA', en: 'Skills for AI agents' },
     subtitle: { es: 'Configuración e instalación', en: 'Setup and configuration' }
   },
+  { title: 'Cloudflare', subtitle: { es: 'Nube y DNS', en: 'Cloud & DNS' } },
+  { title: 'Hetzner', subtitle: { es: 'Servidores VPS', en: 'VPS servers' } },
+  { title: 'SSH', subtitle: { es: 'Acceso a servidores', en: 'Server access' } },
+  { title: { es: 'Dominios y DNS', en: 'Domains & DNS' }, subtitle: { es: 'Infraestructura', en: 'Infrastructure' } },
   { title: 'Bootstrap', subtitle: FRONTEND },
   { title: 'Vite', subtitle: { es: 'Herramientas', en: 'Tooling' } },
   { title: { es: 'Git y GitHub', en: 'Git & GitHub' }, subtitle: { es: 'Control de versiones', en: 'Version control' } }

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { animate } from 'animejs';
 import { ArrowIcon, CrossIcon, GoldText } from '../Icons/Icons';
+import { RelicBadges } from '../Icons/BrandBadges';
 import GoldDrips from '../GoldDrips/GoldDrips';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { SWORD_FOCUS_EVENT } from '../../lib/swordFocus';
@@ -11,10 +12,13 @@ const TILT_X = 3;
 const TILT_Y = 4;
 
 const RelicCard = ({ item, numeral }) => (
-  <article className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}`}>
+  <article
+    className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}${item.badges?.length ? ' relic-card--badged' : ''}`}
+  >
     <span className="relic-numeral ornate-button" aria-hidden="true">
       {numeral}
     </span>
+    <RelicBadges ids={item.badges} />
     <p className="relic-meta">{item.meta}</p>
     <GoldText as="h3" className="relic-title">
       {item.title}
