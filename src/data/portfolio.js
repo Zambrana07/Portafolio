@@ -95,6 +95,7 @@ export const experience = [
     title: { es: 'Infraestructura en la nube', en: 'Cloud infrastructure' },
     meta: { es: 'Circuito 5 · Despliegue y servidores', en: 'Circuito 5 · Deploy and servers' },
     badges: ['cloudflare', 'hetzner', 'server', 'domain'],
+    glow: true,
     description: {
       es: 'Aprendí a llevar una aplicación de localhost a producción: configurar un VPS en Hetzner, entrar al servidor por SSH, montar el servicio y conectar un dominio real. También usé Cloudflare para DNS, proxy y protección del sitio, y entendí cómo se enlazan el dominio, el servidor y la nube para que la tienda y las herramientas internas queden accesibles de forma segura.',
       en: 'Learned how to take an app from localhost to production: provision a Hetzner VPS, connect over SSH, set up the service and wire a real domain. Also used Cloudflare for DNS, proxying and site protection, and how domain, server and cloud fit together so the store and internal tools stay reachable and secure.'

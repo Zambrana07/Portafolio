@@ -13,7 +13,7 @@ const TILT_Y = 4;
 
 const RelicCard = ({ item, numeral }) => (
   <article
-    className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}${item.badges?.length ? ' relic-card--badged' : ''}`}
+    className={`relic-card ornate-frame tilt-card${item.highlight ? ' relic-card--highlight' : ''}${item.badges?.length ? ' relic-card--badged' : ''}${item.glow ? ' relic-card--glow' : ''}`}
   >
     <span className="relic-numeral ornate-button" aria-hidden="true">
       {numeral}

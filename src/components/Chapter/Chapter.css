@@ -260,25 +260,74 @@
   padding-top: 3.1rem;
 }
 
+.relic-card--glow {
+  width: min(100%, 520px);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(201, 165, 90, 0.22), transparent 58%),
+    radial-gradient(ellipse at 100% 100%, rgba(122, 18, 18, 0.28), transparent 55%),
+    linear-gradient(180deg, var(--panel-top), var(--panel-bottom)) padding-box;
+  box-shadow:
+    0 0 28px rgba(201, 165, 90, 0.35),
+    0 0 70px rgba(201, 165, 90, 0.18),
+    0 24px 55px rgba(0, 0, 0, 0.65);
+  animation: relic-glow-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes relic-glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 28px rgba(201, 165, 90, 0.32),
+      0 0 70px rgba(201, 165, 90, 0.14),
+      0 24px 55px rgba(0, 0, 0, 0.65);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(201, 165, 90, 0.48),
+      0 0 90px rgba(201, 165, 90, 0.24),
+      0 24px 55px rgba(0, 0, 0, 0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .relic-card--glow {
+    animation: none;
+  }
+}
+
 .relic-badges {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.7rem;
+  align-items: center;
+  gap: 0.75rem;
   margin: 0 0 1.35rem;
 }
 
 .relic-badge {
-  width: 2.85rem;
-  height: 2.85rem;
-  padding: 0.45rem;
+  box-sizing: border-box;
+  width: 3rem;
+  height: 3rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0;
   cursor: inherit;
+  overflow: visible;
 }
 
 .relic-badge svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
+}
+
+.relic-badge:hover,
+.relic-badge:focus-visible,
+.relic-badge:active {
+  transform: none;
+  filter: none;
+  text-shadow: none;
 }
 
 .relic-meta {
