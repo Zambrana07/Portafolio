@@ -7,7 +7,6 @@ import Certificates from './components/Certificates/Certificates';
 import Footer from './components/Footer/Footer';
 import ScrollRelic from './components/ScrollRelic/ScrollRelic';
 import LanguageToggle from './components/LanguageToggle/LanguageToggle';
-import GoldDrips from './components/GoldDrips/GoldDrips';
 import { GoldText } from './components/Icons/Icons';
 import { localize, useLanguage } from './i18n/LanguageContext';
 import * as portfolio from './data/portfolio';
@@ -82,10 +81,7 @@ const App = () => {
             {ROLE}
           </GoldText>
           <a className="hero-cv ornate-button" href={CURRICULUM_URL} target="_blank" rel="noopener noreferrer">
-            <span className="hero-cv-label">{t.hero.curriculum}</span>
-            <span className="hero-cv-edge" aria-hidden="true">
-              <GoldDrips seed={22} compact />
-            </span>
+            {t.hero.curriculum}
           </a>
           <nav className="hero-menu" aria-label={t.hero.menuLabel}>
             {SECTION_IDS.map(id => (

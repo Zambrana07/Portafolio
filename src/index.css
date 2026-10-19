@@ -312,31 +312,7 @@ body {
   position: relative;
   z-index: 2;
   margin: 1.35rem auto 2.4rem;
-  overflow: visible;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
-}
-
-.hero-cv-edge {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  bottom: 1px;
-  height: 0;
-  pointer-events: none;
-}
-
-.hero-cv-edge .gold-drips {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  transform: translateY(-1px);
-}
-
-.hero-cv-label {
-  position: relative;
-  z-index: 1;
 }
 
 @media (hover: none) {
