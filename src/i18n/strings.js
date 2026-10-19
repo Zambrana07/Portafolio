@@ -4,7 +4,8 @@ export const STRINGS = {
     hero: {
       kicker: 'Portafolio',
       menuLabel: 'Secciones',
-      scroll: 'Desliza para continuar'
+      scroll: 'Desliza para continuar',
+      curriculum: 'Ver curriculum'
     },
     sections: {
       inicio: 'Inicio',
@@ -48,7 +49,8 @@ export const STRINGS = {
     hero: {
       kicker: 'Portfolio',
       menuLabel: 'Sections',
-      scroll: 'Scroll to continue'
+      scroll: 'Scroll to continue',
+      curriculum: 'View resume'
     },
     sections: {
       inicio: 'Home',

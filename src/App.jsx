@@ -12,6 +12,7 @@ import { localize, useLanguage } from './i18n/LanguageContext';
 import * as portfolio from './data/portfolio';
 
 const GITHUB_URL = 'https://github.com/Zambrana07';
+const CURRICULUM_URL = 'https://github.com/Zambrana07/Curriculum';
 const NAME_LINES = ['Alexander Zambrana', 'Rodriguez'];
 const ROLE = 'Software Engineer';
 const SOCIALS = [
@@ -79,6 +80,17 @@ const App = () => {
           <GoldText as="p" className="hero-role">
             {ROLE}
           </GoldText>
+          <a className="hero-cv" href={CURRICULUM_URL} target="_blank" rel="noopener noreferrer">
+            <span className="hero-cv-corners" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="hero-cv-ornament" aria-hidden="true" />
+            <span className="hero-cv-label">{t.hero.curriculum}</span>
+            <span className="hero-cv-ornament hero-cv-ornament--flip" aria-hidden="true" />
+          </a>
           <nav className="hero-menu" aria-label={t.hero.menuLabel}>
             {SECTION_IDS.map(id => (
               <a key={id} href={`#${id}`}>
