@@ -22,8 +22,7 @@ const HeroName = ({ lines }) => {
       },
       delay: stagger(50),
       ease: 'inOutCirc',
-      loopDelay: 7000,
-      loop: true
+      loop: false
     });
 
     return () => {

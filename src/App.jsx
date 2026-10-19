@@ -7,6 +7,7 @@ import Certificates from './components/Certificates/Certificates';
 import Footer from './components/Footer/Footer';
 import ScrollRelic from './components/ScrollRelic/ScrollRelic';
 import LanguageToggle from './components/LanguageToggle/LanguageToggle';
+import GoldDrips from './components/GoldDrips/GoldDrips';
 import { GoldText } from './components/Icons/Icons';
 import { localize, useLanguage } from './i18n/LanguageContext';
 import * as portfolio from './data/portfolio';
@@ -81,15 +82,17 @@ const App = () => {
             {ROLE}
           </GoldText>
           <a className="hero-cv" href={CURRICULUM_URL} target="_blank" rel="noopener noreferrer">
-            <span className="hero-cv-corners" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
+            <span className="hero-cv-edge hero-cv-edge--top" aria-hidden="true">
+              <span />
+              <span />
+              <GoldDrips seed={21} />
             </span>
-            <span className="hero-cv-ornament" aria-hidden="true" />
             <span className="hero-cv-label">{t.hero.curriculum}</span>
-            <span className="hero-cv-ornament hero-cv-ornament--flip" aria-hidden="true" />
+            <span className="hero-cv-edge hero-cv-edge--bottom" aria-hidden="true">
+              <span />
+              <span />
+              <GoldDrips seed={22} />
+            </span>
           </a>
           <nav className="hero-menu" aria-label={t.hero.menuLabel}>
             {SECTION_IDS.map(id => (

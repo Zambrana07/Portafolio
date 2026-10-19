@@ -5,8 +5,8 @@ import './GoldDrips.css';
 const PX = 2;
 const MAX_LENGTH = 18;
 const ROWS = MAX_LENGTH + 10;
-const FALLING_DROPS = 3;
-const GLINTS = 4;
+const FALLING_DROPS = 1;
+const GLINTS = 2;
 
 const PALETTE = {
   W: '#fff4cf',

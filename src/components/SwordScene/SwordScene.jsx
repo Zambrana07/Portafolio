@@ -9,9 +9,10 @@ const CAMERA_DISTANCE = 10;
 const CAMERA_FOV = 30;
 const TIP_DIRECTION = -1;
 const FADE_IN_SECONDS = 1.4;
-const MIN_PIXEL_RATIO = 0.75;
+const MIN_PIXEL_RATIO = 0.65;
 const QUALITY_WINDOW = 90;
 const CANDIDATE_REFRESH_MS = 1000;
+const FRAME_INTERVAL_MS = 1000 / 30;
 
 const orientVertically = model => {
   const size = new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3());
@@ -103,12 +104,11 @@ const SwordScene = ({ modelUrl }) => {
 
     const coarse = window.matchMedia('(pointer: coarse)').matches;
     const liteQuery = window.matchMedia('(max-width: 900px), (pointer: coarse)');
-    const renderer = new THREE.WebGLRenderer({ antialias: !coarse, alpha: true, powerPreference: 'high-performance' });
-    let pixelRatio = Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5);
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
+    let pixelRatio = Math.min(window.devicePixelRatio || 1, coarse ? 0.85 : 1.1);
     renderer.setPixelRatio(pixelRatio);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.9;
+    renderer.toneMapping = THREE.NoToneMapping;
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -193,6 +193,7 @@ const SwordScene = ({ modelUrl }) => {
     let flourish = 1;
     let raf = 0;
     let lastTime = 0;
+    let lastRenderMs = 0;
 
     const adaptQuality = dt => {
       sampledFrames++;
@@ -207,10 +208,13 @@ const SwordScene = ({ modelUrl }) => {
       slowFrames = 0;
     };
 
-    const loop = () => {
+    const loop = nowMs => {
       raf = requestAnimationFrame(loop);
+      if (nowMs - lastRenderMs < FRAME_INTERVAL_MS) return;
+      const frameDt = Math.min((nowMs - lastRenderMs) / 1000, 0.1);
+      lastRenderMs = nowMs;
       const t = clock.getElapsedTime();
-      const dt = Math.min(t - lastTime, 0.1);
+      const dt = frameDt || Math.min(t - lastTime, 0.1);
       lastTime = t;
       if (loadedAt < 0) return;
 
