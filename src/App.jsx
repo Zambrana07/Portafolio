@@ -12,7 +12,7 @@ import { localize, useLanguage } from './i18n/LanguageContext';
 import * as portfolio from './data/portfolio';
 
 const GITHUB_URL = 'https://github.com/Zambrana07';
-const CURRICULUM_URL = 'https://github.com/Zambrana07/Curriculum';
+const CURRICULUM_URL = 'https://curriculum-seven-kappa.vercel.app';
 const NAME_LINES = ['Alexander Zambrana', 'Rodriguez'];
 const ROLE = 'Software Engineer';
 const SOCIALS = [
