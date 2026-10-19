@@ -84,7 +84,7 @@ const App = () => {
           <a className="hero-cv ornate-button" href={CURRICULUM_URL} target="_blank" rel="noopener noreferrer">
             <span className="hero-cv-label">{t.hero.curriculum}</span>
             <span className="hero-cv-edge" aria-hidden="true">
-              <GoldDrips seed={22} />
+              <GoldDrips seed={22} compact />
             </span>
           </a>
           <nav className="hero-menu" aria-label={t.hero.menuLabel}>

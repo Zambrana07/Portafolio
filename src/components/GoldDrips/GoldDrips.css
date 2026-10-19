@@ -10,6 +10,34 @@
   mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
 }
 
+.gold-drips--compact {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.gold-drips--compact .gold-drips-drop {
+  width: 2px;
+  height: 3px;
+  animation-name: gold-drip-fall-compact;
+}
+
+@keyframes gold-drip-fall-compact {
+  0%,
+  78% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
 .gold-drips-art {
   display: block;
   width: 100%;

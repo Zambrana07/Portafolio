@@ -8,6 +8,16 @@ const ROWS = MAX_LENGTH + 10;
 const FALLING_DROPS = 3;
 const GLINTS = 4;
 
+const COMPACT = {
+  px: 2,
+  maxLength: 7,
+  rows: 14,
+  falling: 2,
+  glints: 3,
+  spacing: [3, 5],
+  taperFloor: 0.35
+};
+
 const PALETTE = {
   W: '#fff4cf',
   H: '#f7d98a',
@@ -26,14 +36,22 @@ const seededRandom = seed => {
   };
 };
 
-const buildDrips = (cols, seed) => {
+const buildDrips = (cols, seed, options = {}) => {
+  const maxLength = options.maxLength ?? MAX_LENGTH;
+  const rows = options.rows ?? ROWS;
+  const fallingCount = options.falling ?? FALLING_DROPS;
+  const glintCount = options.glints ?? GLINTS;
+  const px = options.px ?? PX;
+  const [spaceMin, spaceMax] = options.spacing ?? [6, 15];
+  const taperFloor = options.taperFloor ?? 0;
+
   const random = seededRandom(seed);
-  const grid = Array.from({ length: ROWS }, () => Array(cols).fill('.'));
+  const grid = Array.from({ length: rows }, () => Array(cols).fill('.'));
   const set = (x, y, c) => {
-    if (x >= 0 && x < cols && y >= 0 && y < ROWS) grid[y][x] = c;
+    if (x >= 0 && x < cols && y >= 0 && y < rows) grid[y][x] = c;
   };
   const half = cols / 2;
-  const taper = x => Math.max(0, 1 - Math.abs(x + 0.5 - half) / half);
+  const taper = x => Math.max(taperFloor, 1 - Math.abs(x + 0.5 - half) / half);
   const phaseA = random() * 10;
   const phaseB = random() * 10;
   const wave = x => (Math.sin(x * 0.19 + phaseA) + Math.sin(x * 0.07 + phaseB) + 2) / 4;
@@ -41,7 +59,7 @@ const buildDrips = (cols, seed) => {
   const pool = [];
   for (let x = 0; x < cols; x++) {
     const t = taper(x);
-    const thickness = t < 0.04 ? 0 : 1 + Math.round(t * 3 * wave(x));
+    const thickness = t < 0.04 ? 0 : 1 + Math.round(t * (maxLength > 10 ? 3 : 2) * wave(x));
     pool.push(thickness);
     for (let y = 0; y < thickness; y++) {
       set(x, y, y === 0 ? 'H' : y === thickness - 1 ? 'D' : 'G');
@@ -49,13 +67,13 @@ const buildDrips = (cols, seed) => {
   }
 
   const drips = [];
-  let x = 4 + Math.floor(random() * 6);
-  while (x < cols - 4) {
+  let x = 2 + Math.floor(random() * 3);
+  while (x < cols - 2) {
     const t = taper(x);
-    const length = Math.round(MAX_LENGTH * t ** 1.5 * random() ** 1.4);
-    const width = t > 0.6 && length > 7 ? 3 : t > 0.3 && length > 3 ? 2 : 1;
+    const length = Math.round(maxLength * t ** (taperFloor ? 1.1 : 1.5) * random() ** (taperFloor ? 1.1 : 1.4));
+    const width = t > 0.6 && length > Math.max(4, maxLength * 0.4) ? 3 : t > 0.3 && length > 2 ? 2 : 1;
     if (length > 0) drips.push({ x, length, width });
-    x += Math.round(6 + random() * 9 + (1 - t) * 6);
+    x += Math.round(spaceMin + random() * (spaceMax - spaceMin) + (taperFloor ? 0 : (1 - t) * 6));
   }
 
   for (const drip of drips) {
@@ -96,8 +114,8 @@ const buildDrips = (cols, seed) => {
   const falling = drips
     .filter(drip => drip.width > 1)
     .sort((a, b) => b.length - a.length)
-    .slice(0, FALLING_DROPS)
-    .map(({ x, width, bottom }) => ({ left: (x + width / 2) * PX, top: bottom * PX }));
+    .slice(0, fallingCount)
+    .map(({ x, width, bottom }) => ({ left: (x + width / 2) * px, top: bottom * px }));
 
   for (let x = 2; x < cols - 2; x++) {
     if (grid[0][x] === 'H' && taper(x) > 0.25 && random() < 0.06) set(x, 0, 'W');
@@ -106,30 +124,41 @@ const buildDrips = (cols, seed) => {
   const glints = drips
     .filter(drip => drip.glint)
     .sort(() => random() - 0.5)
-    .slice(0, GLINTS)
-    .map(({ glint }) => ({ left: glint.x * PX, top: glint.y * PX }));
+    .slice(0, glintCount)
+    .map(({ glint }) => ({ left: glint.x * px, top: glint.y * px }));
 
-  return { grid: grid.map(row => row.join('')), falling, glints };
+  return { grid: grid.map(row => row.join('')), falling, glints, rows, px };
 };
 
-const GoldDrips = ({ seed = 1 }) => {
+const GoldDrips = ({ seed = 1, compact = false }) => {
   const ref = useRef(null);
   const [cols, setCols] = useState(0);
+  const options = compact ? COMPACT : null;
+  const px = options?.px ?? PX;
+  const rows = options?.rows ?? ROWS;
 
   useLayoutEffect(() => {
     const element = ref.current;
     if (!element) return undefined;
-    const measure = () => setCols(Math.round(element.getBoundingClientRect().width / PX));
+    const measure = () => setCols(Math.round(element.getBoundingClientRect().width / px));
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [px]);
 
-  const art = useMemo(() => (cols > 8 ? buildDrips(cols, seed) : null), [cols, seed]);
+  const art = useMemo(
+    () => (cols > 8 ? buildDrips(cols, seed, options || {}) : null),
+    [cols, seed, options]
+  );
 
   return (
-    <div ref={ref} className="gold-drips" style={{ height: ROWS * PX }} aria-hidden="true">
+    <div
+      ref={ref}
+      className={`gold-drips${compact ? ' gold-drips--compact' : ''}`}
+      style={{ height: rows * px }}
+      aria-hidden="true"
+    >
       {art && (
         <>
           <PixelArt grid={art.grid} palette={PALETTE} className="gold-drips-art" />
