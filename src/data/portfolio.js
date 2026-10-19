@@ -27,7 +27,7 @@ export const featuredProjects = [
     },
     description: {
       es: 'Demo pública de la herramienta que construí en Circuito 5 para cambios masivos sobre el catálogo de la tienda en línea: editar por subfamilia (tienda, utilidad, sección, estante y unidad), vigilante automático de fotos y stock, vista previa antes/después con Excel, artículos pendientes de revisar e historial completo de cada cambio. Esta demo es solo interfaz con datos ficticios, sin servidor ni escrituras reales.',
-      en: 'Public demo of the tool I built at Circuito 5 for bulk updates across the online store catalog: edit by subfamily (store visibility, margin, section, shelf and unit), automatic photo and stock watcher, before/after preview with Excel export, items pending review, and a full change history. This demo is UI-only with fictional data—no live server and no real writes.'
+      en: 'Public demo of the tool I built at Circuito 5 for bulk updates across the online store catalog: edit by subfamily (store visibility, margin, section, shelf and unit), automatic photo and stock watcher, before/after preview with Excel export, items pending review, and a full change history. This demo is UI-only with fictional data/no live server and no real writes.'
     },
     tags: [
       { es: 'Automatización', en: 'Automation' },
