@@ -82,13 +82,8 @@ const App = () => {
             {ROLE}
           </GoldText>
           <a className="hero-cv" href={CURRICULUM_URL} target="_blank" rel="noopener noreferrer">
-            <span className="hero-cv-edge hero-cv-edge--top" aria-hidden="true">
-              <span />
-              <span />
-              <GoldDrips seed={21} />
-            </span>
             <span className="hero-cv-label">{t.hero.curriculum}</span>
-            <span className="hero-cv-edge hero-cv-edge--bottom" aria-hidden="true">
+            <span className="hero-cv-edge" aria-hidden="true">
               <span />
               <span />
               <GoldDrips seed={22} />

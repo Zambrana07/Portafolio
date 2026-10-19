@@ -314,8 +314,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 1.75rem auto 0.4rem;
-  padding: 1.15rem 2.6rem 1.55rem;
+  margin: 1.35rem auto 2.4rem;
+  padding: 0.95rem 2.6rem;
   overflow: visible;
   border-radius: 999px;
   text-decoration: none;
@@ -331,21 +331,13 @@ body {
 
 .hero-cv-edge {
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
   display: flex;
   align-items: center;
   pointer-events: none;
-}
-
-.hero-cv-edge--top {
-  top: 0;
-  transform: translateY(-1px);
-}
-
-.hero-cv-edge--bottom {
-  bottom: 0;
-  transform: translateY(1px) scaleY(-1);
+  transform: translateY(1px);
 }
 
 .hero-cv-edge > span {
@@ -361,9 +353,11 @@ body {
 
 .hero-cv-edge .gold-drips {
   position: absolute;
-  inset: 0 auto auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: auto;
+  transform: none;
 }
 
 .hero-cv-label {
