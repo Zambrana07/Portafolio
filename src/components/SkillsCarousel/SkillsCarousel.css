@@ -1,7 +1,8 @@
 .skills-stage {
   position: relative;
   width: 100%;
-  height: clamp(380px, 48vw, 520px);
+  height: clamp(400px, 50vw, 540px);
+  padding-bottom: 2rem;
   opacity: 0;
 }
 
@@ -121,6 +122,22 @@
   justify-content: center;
   gap: 1rem;
   margin-top: 0.4rem;
+}
+
+.skills-controls--ring {
+  position: absolute;
+  left: 50%;
+  bottom: 0.35rem;
+  z-index: 3;
+  width: min(16rem, 72%);
+  transform: translateX(-50%);
+  margin-top: 0;
+}
+
+.skills-controls--ring .relic-track {
+  flex: 1;
+  max-width: none;
+  width: 100%;
 }
 
 .relic-track {

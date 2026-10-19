@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import './CircularCarousel.css';
 
@@ -140,6 +140,7 @@ const CircularCarousel = ({
   captions = false,
   onChange,
   onItemClick,
+  apiRef,
   className = '',
   style
 }) => {
@@ -642,6 +643,20 @@ const CircularCarousel = ({
     state.holdUntil = performance.now() + 2800;
     wakeRef.current();
   }, []);
+
+  const seekProgress = useCallback((ratio, settle = false) => {
+    const state = stateRef.current;
+    const s = settingsRef.current;
+    const clamped = clamp(ratio, 0, 1);
+    const angle = -clamped * s.count * s.step;
+    state.angle = angle;
+    state.velocity = 0;
+    state.target = settle && s.snap ? Math.round(angle / s.step) * s.step : null;
+    state.holdUntil = performance.now() + 2800;
+    wakeRef.current();
+  }, []);
+
+  useImperativeHandle(apiRef, () => ({ focusIndex, stepBy, seekProgress }), [focusIndex, stepBy, seekProgress]);
 
   const updatePointer = event => {
     const rect = rootRef.current.getBoundingClientRect();

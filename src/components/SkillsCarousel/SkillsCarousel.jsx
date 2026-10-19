@@ -56,45 +56,100 @@ const applyCoverflow = scroller => {
   }
 };
 
-const RelicTrack = ({ scrollerRef }) => {
+const RelicTrack = ({ scrollerRef, active = 0, count = 1, onSeek }) => {
   const trackRef = useRef(null);
   const thumbRef = useRef(null);
+  const activeRef = useRef(active);
+  const countRef = useRef(count);
+  const onSeekRef = useRef(onSeek);
+  activeRef.current = active;
+  countRef.current = Math.max(count, 1);
+  onSeekRef.current = onSeek;
 
   useEffect(() => {
-    const scroller = scrollerRef.current;
+    const scroller = scrollerRef?.current;
     const track = trackRef.current;
     const thumb = thumbRef.current;
     let metrics = { maxScroll: 0, maxLeft: 0 };
+    let dragging = false;
 
-    const update = () => {
+    const thumbMin = () => thumb.firstElementChild.getBoundingClientRect().width * 2 + 36;
+
+    const updateFromScroller = () => {
+      if (!scroller) return;
       const maxScroll = scroller.scrollWidth - scroller.clientWidth;
       const trackWidth = track.clientWidth;
-      const minWidth = thumb.firstElementChild.getBoundingClientRect().width * 2 + 36;
-      const thumbWidth = Math.min(trackWidth, Math.max(minWidth, (trackWidth * scroller.clientWidth) / scroller.scrollWidth));
+      const thumbWidth = Math.min(trackWidth, Math.max(thumbMin(), (trackWidth * scroller.clientWidth) / scroller.scrollWidth));
       const maxLeft = trackWidth - thumbWidth;
       metrics = { maxScroll, maxLeft };
       thumb.style.width = `${thumbWidth}px`;
       thumb.style.transform = `translateX(${maxScroll > 0 ? (scroller.scrollLeft / maxScroll) * maxLeft : 0}px)`;
     };
 
+    const updateFromIndex = () => {
+      if (scroller) return;
+      const trackWidth = track.clientWidth;
+      const total = countRef.current;
+      const thumbWidth = Math.min(trackWidth, Math.max(thumbMin(), trackWidth / total));
+      const maxLeft = Math.max(0, trackWidth - thumbWidth);
+      metrics = { maxScroll: total - 1, maxLeft };
+      thumb.style.width = `${thumbWidth}px`;
+      if (dragging) return;
+      const ratio = total > 1 ? activeRef.current / (total - 1) : 0;
+      thumb.style.transform = `translateX(${ratio * maxLeft}px)`;
+    };
+
+    const update = () => (scroller ? updateFromScroller() : updateFromIndex());
+
+    const ratioFromClientX = clientX => {
+      if (!metrics.maxLeft) return 0;
+      const rect = track.getBoundingClientRect();
+      return Math.min(1, Math.max(0, (clientX - rect.left - thumb.offsetWidth / 2) / metrics.maxLeft));
+    };
+
+    const applyRatio = (ratio, settle = false) => {
+      if (scroller) {
+        if (settle) {
+          scroller.scrollTo({ left: ratio * metrics.maxScroll, behavior: 'smooth' });
+        } else {
+          scroller.scrollLeft = ratio * metrics.maxScroll;
+        }
+        return;
+      }
+      thumb.style.transform = `translateX(${ratio * metrics.maxLeft}px)`;
+      onSeekRef.current?.(ratio, settle);
+    };
+
     const onThumbDown = event => {
       event.preventDefault();
       const startX = event.clientX;
-      const startScroll = scroller.scrollLeft;
+      const startLeft = scroller
+        ? scroller.scrollLeft
+        : (activeRef.current / Math.max(countRef.current - 1, 1)) * metrics.maxLeft;
       thumb.setPointerCapture(event.pointerId);
-      scroller.style.scrollSnapType = 'none';
+      if (scroller) scroller.style.scrollSnapType = 'none';
       track.classList.add('is-dragging');
+      dragging = true;
+      let lastRatio = startLeft / (metrics.maxLeft || 1);
 
       const onMove = moveEvent => {
         if (!metrics.maxLeft) return;
-        scroller.scrollLeft = startScroll + ((moveEvent.clientX - startX) / metrics.maxLeft) * metrics.maxScroll;
+        if (scroller) {
+          scroller.scrollLeft = startLeft + ((moveEvent.clientX - startX) / metrics.maxLeft) * metrics.maxScroll;
+          return;
+        }
+        lastRatio = Math.min(1, Math.max(0, startLeft / metrics.maxLeft + (moveEvent.clientX - startX) / metrics.maxLeft));
+        applyRatio(lastRatio, false);
       };
       const onUp = () => {
+        dragging = false;
         track.classList.remove('is-dragging');
-        scroller.style.scrollSnapType = '';
+        if (scroller) scroller.style.scrollSnapType = '';
+        else applyRatio(lastRatio, true);
         thumb.removeEventListener('pointermove', onMove);
         thumb.removeEventListener('pointerup', onUp);
         thumb.removeEventListener('pointercancel', onUp);
+        update();
       };
 
       thumb.addEventListener('pointermove', onMove);
@@ -104,25 +159,38 @@ const RelicTrack = ({ scrollerRef }) => {
 
     const onTrackDown = event => {
       if (thumb.contains(event.target) || !metrics.maxLeft) return;
-      const rect = track.getBoundingClientRect();
-      const ratio = (event.clientX - rect.left - thumb.offsetWidth / 2) / metrics.maxLeft;
-      scroller.scrollTo({ left: Math.min(1, Math.max(0, ratio)) * metrics.maxScroll, behavior: 'smooth' });
+      applyRatio(ratioFromClientX(event.clientX), true);
     };
 
     const resizeObserver = new ResizeObserver(update);
     resizeObserver.observe(track);
-    scroller.addEventListener('scroll', update, { passive: true });
+    scroller?.addEventListener('scroll', update, { passive: true });
     thumb.addEventListener('pointerdown', onThumbDown);
     track.addEventListener('pointerdown', onTrackDown);
     update();
 
     return () => {
       resizeObserver.disconnect();
-      scroller.removeEventListener('scroll', update);
+      scroller?.removeEventListener('scroll', update);
       thumb.removeEventListener('pointerdown', onThumbDown);
       track.removeEventListener('pointerdown', onTrackDown);
     };
   }, [scrollerRef]);
+
+  useEffect(() => {
+    if (scrollerRef?.current) return;
+    const track = trackRef.current;
+    const thumb = thumbRef.current;
+    if (!track || !thumb) return;
+    const trackWidth = track.clientWidth;
+    const total = Math.max(count, 1);
+    const minWidth = thumb.firstElementChild.getBoundingClientRect().width * 2 + 36;
+    const thumbWidth = Math.min(trackWidth, Math.max(minWidth, trackWidth / total));
+    const maxLeft = Math.max(0, trackWidth - thumbWidth);
+    thumb.style.width = `${thumbWidth}px`;
+    const ratio = total > 1 ? active / (total - 1) : 0;
+    thumb.style.transform = `translateX(${ratio * maxLeft}px)`;
+  }, [active, count, scrollerRef]);
 
   return (
     <div ref={trackRef} className="relic-track" aria-hidden="true">
@@ -195,11 +263,10 @@ const SkillsSwiper = ({ skills }) => {
   );
 };
 
-const SkillsCarousel = ({ skills }) => {
+const SkillsRing = ({ skills }) => {
   const { t } = useLanguage();
-  const lite = useLiteMode();
-
-  if (lite) return <SkillsSwiper skills={skills} />;
+  const apiRef = useRef(null);
+  const [active, setActive] = useState(0);
 
   return (
     <div className="skills-stage chapter-reveal">
@@ -226,10 +293,25 @@ const SkillsCarousel = ({ skills }) => {
         depthFade={0.6}
         innerShade={0.6}
         cornerRadius={4}
+        apiRef={apiRef}
+        onChange={setActive}
       />
+      <div className="skills-controls skills-controls--ring">
+        <RelicTrack
+          active={active}
+          count={skills.length}
+          onSeek={(ratio, settle) => apiRef.current?.seekProgress(ratio, settle)}
+        />
+      </div>
       <SkillsList skills={skills} />
     </div>
   );
+};
+
+const SkillsCarousel = ({ skills }) => {
+  const lite = useLiteMode();
+  if (lite) return <SkillsSwiper skills={skills} />;
+  return <SkillsRing skills={skills} />;
 };
 
 export default SkillsCarousel;
