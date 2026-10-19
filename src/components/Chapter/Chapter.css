@@ -78,6 +78,16 @@
   gap: 6rem;
 }
 
+.featured-relics {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.featured-relics--stack .featured-relic:last-child {
+  margin-bottom: 7rem;
+}
+
 .featured-relic {
   position: relative;
   display: grid;
@@ -92,6 +102,26 @@
   box-shadow:
     0 0 40px rgba(201, 165, 90, 0.16),
     0 30px 70px rgba(0, 0, 0, 0.7);
+}
+
+.featured-relic--reverse {
+  grid-template-columns: 1fr 1.25fr;
+}
+
+.featured-relic--reverse .featured-relic-media {
+  order: 2;
+  border-right: none;
+  border-left: 2px solid #4a443a;
+}
+
+.featured-relic--reverse .featured-relic-body {
+  order: 1;
+}
+
+.featured-relic--reverse .featured-relic-media::after {
+  background:
+    linear-gradient(270deg, transparent 60%, rgba(12, 8, 7, 0.85)),
+    linear-gradient(180deg, transparent 70%, rgba(122, 18, 18, 0.25));
 }
 
 .featured-relic:focus-visible {
@@ -456,13 +486,21 @@
     margin-bottom: 5rem;
   }
 
-  .featured-relic-media {
+  .featured-relic-media,
+  .featured-relic--reverse .featured-relic-media {
+    order: 0;
     min-height: 220px;
     border-right: none;
+    border-left: none;
     border-bottom: 2px solid #4a443a;
   }
 
-  .featured-relic-media::after {
+  .featured-relic--reverse .featured-relic-body {
+    order: 0;
+  }
+
+  .featured-relic-media::after,
+  .featured-relic--reverse .featured-relic-media::after {
     background: linear-gradient(180deg, transparent 55%, rgba(12, 8, 7, 0.85));
   }
 

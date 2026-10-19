@@ -49,11 +49,16 @@ const RelicCard = ({ item, numeral }) => (
   </article>
 );
 
-const FeaturedRelic = ({ item }) => {
+const FeaturedRelic = ({ item, reverse = false }) => {
   const { t } = useLanguage();
 
   return (
-    <a className="featured-relic ornate-frame tilt-card" href={item.href} target="_blank" rel="noopener noreferrer">
+    <a
+      className={`featured-relic ornate-frame tilt-card${reverse ? ' featured-relic--reverse' : ''}`}
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span className="featured-relic-badge ornate-button">
         <CrossIcon /> Opus Magnum <CrossIcon />
       </span>
@@ -124,6 +129,7 @@ const useCardTilt = sectionRef => {
 
 const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children }) => {
   const sectionRef = useRef(null);
+  const featuredList = Array.isArray(featured) ? featured : featured ? [featured] : [];
   useCardTilt(sectionRef);
 
   useEffect(() => {
@@ -183,7 +189,13 @@ const Chapter = ({ id, numeral, title, subtitle, items = [], featured, children 
         </div>
       </header>
 
-      {featured && <FeaturedRelic item={featured} />}
+      {featuredList.length > 0 && (
+        <div className={`featured-relics${featuredList.length > 1 ? ' featured-relics--stack' : ''}`}>
+          {featuredList.map((item, index) => (
+            <FeaturedRelic key={item.href || item.title} item={item} reverse={index % 2 === 1} />
+          ))}
+        </div>
+      )}
 
       {children}
 

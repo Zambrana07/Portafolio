@@ -41,7 +41,7 @@ const releaseFocus = () => {
 
 const App = () => {
   const { lang, t } = useLanguage();
-  const { featuredProject, projects, experience, skills, certificates } = useMemo(() => localize(portfolio, lang), [lang]);
+  const { featuredProjects, projects, experience, skills, certificates } = useMemo(() => localize(portfolio, lang), [lang]);
   const socials = useMemo(
     () => SOCIALS.map(social => (social.id === 'mail' ? { ...social, label: t.footer.email } : social)),
     [t]
@@ -100,7 +100,7 @@ const App = () => {
           numeral="I"
           title={t.sections.proyectos}
           subtitle="Opera"
-          featured={featuredProject}
+          featured={featuredProjects}
           items={projects}
         />
         <Chapter id="experiencia" numeral="II" title="Experientia" subtitle={t.sections.experiencia} items={experience} />

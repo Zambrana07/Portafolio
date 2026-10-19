@@ -4,17 +4,42 @@ const FRONTEND = 'Frontend';
 const LANGUAGE = { es: 'Lenguaje', en: 'Language' };
 const AI = { es: 'Inteligencia artificial', en: 'Artificial intelligence' };
 
-export const featuredProject = {
-  title: 'Evolve',
-  meta: { es: 'Proyecto destacado · Landing page', en: 'Featured project · Landing page' },
-  description: {
-    es: 'Landing page de Evolve, una app con inteligencia artificial que ayuda a las personas a ser constantes con sus hábitos: modo focus, rutinas encadenadas, rachas y recompensas, recordatorios en el momento preciso y cinco temas de color. Incluye registro a la lista de espera para el lanzamiento. Desarrollado en equipo.',
-    en: 'Landing page for Evolve, an AI-powered app that helps people stay consistent with their habits: focus mode, chained routines, streaks and rewards, perfectly timed reminders and five color themes. Includes a waitlist sign-up for the launch. Built as a team.'
+export const featuredProjects = [
+  {
+    title: 'Evolve',
+    meta: { es: 'Proyecto destacado · Landing page', en: 'Featured project · Landing page' },
+    description: {
+      es: 'Landing page de Evolve, una app con inteligencia artificial que ayuda a las personas a ser constantes con sus hábitos: modo focus, rutinas encadenadas, rachas y recompensas, recordatorios en el momento preciso y cinco temas de color. Incluye registro a la lista de espera para el lanzamiento. Desarrollado en equipo.',
+      en: 'Landing page for Evolve, an AI-powered app that helps people stay consistent with their habits: focus mode, chained routines, streaks and rewards, perfectly timed reminders and five color themes. Includes a waitlist sign-up for the launch. Built as a team.'
+    },
+    tags: ['React', 'Vite', 'JavaScript', 'CSS', { es: 'Trabajo en equipo', en: 'Teamwork' }],
+    image: '/images/evolve.jpg',
+    href: 'https://evolve-early.vercel.app'
   },
-  tags: ['React', 'Vite', 'JavaScript', 'CSS', { es: 'Trabajo en equipo', en: 'Teamwork' }],
-  image: '/images/evolve.jpg',
-  href: 'https://evolve-early.vercel.app'
-};
+  {
+    title: {
+      es: 'Manejo masivo de BD',
+      en: 'Bulk database management'
+    },
+    meta: {
+      es: 'Proyecto destacado · Herramienta interna · Demo',
+      en: 'Featured project · Internal tool · Demo'
+    },
+    description: {
+      es: 'Demo pública de la herramienta que construí en Circuito 5 para cambios masivos sobre el catálogo de la tienda en línea: editar por subfamilia (tienda, utilidad, sección, estante y unidad), vigilante automático de fotos y stock, vista previa antes/después con Excel, artículos pendientes de revisar e historial completo de cada cambio. Esta demo es solo interfaz con datos ficticios, sin servidor ni escrituras reales.',
+      en: 'Public demo of the tool I built at Circuito 5 for bulk updates across the online store catalog: edit by subfamily (store visibility, margin, section, shelf and unit), automatic photo and stock watcher, before/after preview with Excel export, items pending review, and a full change history. This demo is UI-only with fictional data—no live server and no real writes.'
+    },
+    tags: [
+      { es: 'Automatización', en: 'Automation' },
+      { es: 'Catálogo', en: 'Catalog' },
+      'JavaScript',
+      { es: 'Herramienta interna', en: 'Internal tool' },
+      { es: 'Demo segura', en: 'Safe demo' }
+    ],
+    image: '/images/manejo-masivo-demo.jpg',
+    href: 'https://manejo-masivo-bd-demo.vercel.app'
+  }
+];
 
 export const projects = [
   {
